@@ -21,5 +21,4 @@
     import searchUbication from '~/components/searchUbication.vue';
     import mostSearchSection from '../components/mostSearchSection.vue';
     import footerWeb from '~/components/footer/footerWeb.vue';
-
 </script>

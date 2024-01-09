@@ -1,4 +1,4 @@
-export type APIResponseUbications = {
+export type APIResponseUbication = {
     id:   number;
     name: string;
 }

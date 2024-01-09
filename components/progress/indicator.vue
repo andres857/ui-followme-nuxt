@@ -10,7 +10,6 @@
         </div>
         <div class=" bg-follow w-[15px] h-full rounded-full">
         </div>
-        
         <div class=" bg-follow w-[15px] h-full rounded-full">
         </div>
         <div class=" bg-follow w-[15px] h-full rounded-full">

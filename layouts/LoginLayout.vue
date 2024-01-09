@@ -9,7 +9,7 @@
     </section>
 </template>
 
-<script setup>
+<script lang="ts" setup>
     import login from '~/components/loginCard.vue'
     import FooterLogin from '~/components/footer/footerLogin.vue'
 

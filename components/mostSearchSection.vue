@@ -4,56 +4,23 @@
             <h3 class=" text-follow text-xl"> Destinos mas buscados </h3>
         </div>
         <div class=" grid h-[75vh]">
-            <div class="grid justify-items-center content-start gap-y-1 overflow-y-auto">
-                <itemMostSearch :nombre="'Centro Internacional'"/>
-                <itemMostSearch :nombre="'Centro Internacional'"/>
-                <itemMostSearch :nombre="'Centro Internacional'"/>
-                <itemMostSearch :nombre="'Centro Internacional'"/>
-
-                <!-- <itemMostSearch>
-                    <span> Medicina Nuclear</span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Admisiones </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Caja Torre D </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Odontologia </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Chequeo Medico Especializado </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Punto Donacion Sangre </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Mamografia </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Starbucks </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Cajas salas de Espera Torre 1 </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Cajas salas de Espera Torre 1 </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Cajas salas de Espera Torre 1 </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Cajas salas de Espera Torre 1 </span>
-                </itemMostSearch>
-                <itemMostSearch>
-                    <span> Cajas salas de Espera Torre 1 </span>
-                </itemMostSearch> -->
+            <div class="grid justify-items-center content-start gap-y-1 overflow-y-auto"                 >
+                <div class="w-11/12 h-[50px]" v-for="ubication in ubicationStore.ubications" :key="ubication.id" >
+                    <itemMostSearch :nombre="ubication.name"/>
+                </div>
             </div>
+            <!-- <button class=" bg-slate-400 text-white rounded-md text-lg" @click="ubicationStore.fetchUbications()"> get Ubications </button> -->
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import itemMostSearch from './itemMostSearch.vue';
+    // import { ref, onMounted, onBeforeMount} from 'vue';
+    import { useCounterStore, useUbicationsStore } from '../stores/ubications';
+    import itemMostSearch from './itemMostSearch.vue';
+    
+    // const mostSearchedUbications = ref<APIResponseUbications[]>([]);
+    const ubicationStore = useUbicationsStore();
+    ubicationStore.fetchUbications();
+    console.log( ubicationStore.ubications);
 </script>
