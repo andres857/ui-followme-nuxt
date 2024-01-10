@@ -5,22 +5,32 @@
         </div>
         <div class=" grid h-[75vh]">
             <div class="grid justify-items-center content-start gap-y-1 overflow-y-auto"                 >
-                <div class="w-11/12 h-[50px]" v-for="ubication in ubicationStore.ubications" :key="ubication.id" >
+                <div class="w-11/12 h-[50px]" 
+                    v-for="ubication in ubicationFound" :key="ubication.id" >
                     <itemMostSearch :nombre="ubication.name"/>
                 </div>
             </div>
-            <!-- <button class=" bg-slate-400 text-white rounded-md text-lg" @click="ubicationStore.fetchUbications()"> get Ubications </button> -->
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-    // import { ref, onMounted, onBeforeMount} from 'vue';
-    import { useCounterStore, useUbicationsStore } from '../stores/ubications';
+    import { useSearchValueStore, useUbicationsStore } from '../stores/ubications';
     import itemMostSearch from './itemMostSearch.vue';
     
-    // const mostSearchedUbications = ref<APIResponseUbications[]>([]);
     const ubicationStore = useUbicationsStore();
+    const searchValueStore = useSearchValueStore(); 
+
     ubicationStore.fetchUbications();
     console.log( ubicationStore.ubications);
+
+    const ubicationFound = computed(()=> {
+        if ( searchValueStore.searchInput.trim().length > 0){
+            return ubicationStore.ubications.filter( (ubication)=>{
+                return ubication.name.toLowerCase().includes( searchValueStore.searchInput.trim());
+            });
+        }
+        return ubicationStore.ubications;
+    });
+
 </script>

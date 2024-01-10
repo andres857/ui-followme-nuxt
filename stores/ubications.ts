@@ -1,24 +1,6 @@
+import { ref } from 'vue';
 import { defineStore } from "pinia";
 import { type APIResponseUbication } from "../types/api";
-
-// export const useUbicationsStore = defineStore('ubicationStore', {
-//     state: () => ({
-//       ubications: [] as APIResponseUbications[]
-//     }),
-//     actions: {
-//       async getUbications() {
-//         try {
-//             const ubicationsAPI = await $fetch<APIResponseUbications[]>('http://localhost:3026/ubications');
-//             this.ubications = ubicationsAPI;        
-//         } catch (error: any) {
-//             console.log(error.message);
-//         }
-        
-//       }
-//     }
-// })
-// stores/ubications.ts
-import { ref } from 'vue';
 
 export const useUbicationsStore = defineStore('ubications', () => {
     const ubications = ref<APIResponseUbication[]>([]);
@@ -40,6 +22,10 @@ export const useUbicationsStore = defineStore('ubications', () => {
     return { ubications, fetchUbications };
 });
 
+export const useSearchValueStore = defineStore('searchValue', ()=>{
+    const searchInput = ref('')
+    return { searchInput }
+});
 
 export const useCounterStore = defineStore('counter', () => {
     const count = ref(0)
@@ -50,8 +36,8 @@ export const useCounterStore = defineStore('counter', () => {
     }
     function decrement() {
         count.value--
-      }
+    }
   
     return { count, name, doubleCount, increment, decrement }
-})
+});
   
