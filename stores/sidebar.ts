@@ -7,8 +7,7 @@ export const useSidebarStore = defineStore('sidebar', () => {
     function setSelection(selection: any) {
 
       currentSelection.value = selection;
-      console.log('store', currentSelection.value);
-      
+      console.log('store', currentSelection.value);      
     }
   
     return { currentSelection, setSelection };

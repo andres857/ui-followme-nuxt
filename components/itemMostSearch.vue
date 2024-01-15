@@ -6,10 +6,10 @@
     </div>
 </template>
 
-<script>
-    export default {
-        props: {
-            nombre: String
-        }
-    }
+<script  lang="ts" setup>
+    import { defineProps } from 'vue';
+
+    defineProps({
+        nombre: String
+    });
 </script>
