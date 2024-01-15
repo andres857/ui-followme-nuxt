@@ -18,7 +18,6 @@ export const useUbicationsStore = defineStore('ubications', () => {
             console.error('Error fetching ubications:', error);
         }
     }
-
     return { ubications, fetchUbications };
 });
 
