@@ -2,13 +2,14 @@ import { ref } from 'vue';
 import { defineStore } from "pinia";
 
 export const useSidebarStore = defineStore('sidebar', () => {
-    const currentSelection = ref(null);
+    
+  const currentSelection = ref('');
   
-    function setSelection(selection: any) {
+  function setSelection(selection: string) {
 
-      currentSelection.value = selection;
-      console.log('store', currentSelection.value);      
-    }
-  
-    return { currentSelection, setSelection };
+    currentSelection.value = selection;
+    console.log('store', currentSelection.value);      
+  }
+
+  return { currentSelection, setSelection };
 });

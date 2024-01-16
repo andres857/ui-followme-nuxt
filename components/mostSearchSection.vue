@@ -21,12 +21,12 @@
     const ubicationStore = useUbicationsStore();
     const searchValueStore = useSearchValueStore(); 
 
-    ubicationStore.fetchUbications();
+    ubicationStore.fetchUbicationsbyType('Destinos');
     console.log( ubicationStore.ubications);
 
     const ubicationFound = computed(()=> {
         if ( searchValueStore.searchInput.trim().length > 0){
-            return ubicationStore.ubications.filter( (ubication)=>{
+            return ubicationStore.ubications.filter( (ubication: any)=>{
                 return ubication.name.toLowerCase().includes( searchValueStore.searchInput.trim());
             });
         }

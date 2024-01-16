@@ -5,11 +5,15 @@ import { type APIResponseUbication } from "../types/api";
 export const useUbicationsStore = defineStore('ubications', () => {
     const ubications = ref<APIResponseUbication[]>([]);
 
-    async function fetchUbications() {
+    async function fetchUbicationsbyType(name: string) {
         try {
-            const response = await fetch('http://localhost:3026/ubications');
+            const response = await fetch(`http://localhost:3026/ubications?type=${name}`);
+            console.log('request endpoint', name);
+            
             if (response.ok) {
-                const ubicationsAPI = await $fetch<APIResponseUbication[]>('http://localhost:3026/ubications');
+                console.log('content', response);
+                
+                const ubicationsAPI = await $fetch<APIResponseUbication[]>(`http://localhost:3026/ubications?type=${name}`);
                 ubications.value = ubicationsAPI;
             } else {
                 console.error('Error fetching ubications:', response.statusText);
@@ -18,7 +22,7 @@ export const useUbicationsStore = defineStore('ubications', () => {
             console.error('Error fetching ubications:', error);
         }
     }
-    return { ubications, fetchUbications };
+    return { ubications, fetchUbicationsbyType };
 });
 
 export const useSearchValueStore = defineStore('searchValue', ()=>{
