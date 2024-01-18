@@ -22,6 +22,22 @@ export const useUbicationsStore = defineStore('ubications', () => {
             console.error('Error fetching ubications:', error);
         }
     }
+
+    async function fetchTypesUbication() {
+        try {
+            const response = await fetch(`http://localhost:3026/type-ubications`);
+            console.log('request endpoint typeubications');
+            
+            if (response.ok) {
+                const typeUbicationAPI = await $fetch<APIResponseUbication[]>(`http://localhost:3026/type-ubications/`);
+                ubications.value = typeUbicationAPI;
+            } else {
+                console.error('Error fetching ubications:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching ubications:', error);
+        }
+    }
     return { ubications, fetchUbicationsbyType };
 });
 
