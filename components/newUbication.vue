@@ -15,23 +15,20 @@
                 <input id="dropzone-image" name="file" type="file" class="hidden" @change="onChangeFile"   accept="image/jpeg, image/png" />
                 <pre> {{inputFile?.name}} </pre>
             </label>
-            <div>
-                <button @click="onSubmit">Submit</button>
-            </div>
         </div>
         <!-- section Datos -->
         <div class=" p-5">
             <div>
                 <label for="nameUbication" class="block text-sm text-gray-500">Nombre de la Ubicacion</label>
 
-                <input type="text" placeholder="Entrada 1" class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
+                <input type="text" placeholder="Entrada 1" v-model="nameUbication" class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" />
             </div>
 
             <div class="mt-5">
                 <label for="typeUbication" class="block mb-2 text-sm font-medium text-gray-900">Seleccione el tipo de ubicacion</label>
 
-                <select id="typeUbication" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
-                    <option v-for="type, index in ubicationsTypes" :key="index" :value="type.name">
+                <select id="typeUbication" v-model="selectedTypeUbication" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
+                    <option v-for="type, index in ubicationsTypes" :key="index" :value="type.id">
                         {{ type.name}}
                     </option>                    
                 </select>
@@ -40,9 +37,9 @@
             <div class="mt-5">
                 <label for="Locations" class="block mb-2 text-sm font-medium text-gray-900">Seleccione la Sede </label>
 
-                <select id="locations" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">                    
-                    <option v-for="location, index in locations" :key="index" :value="location.name">
-                        {{ location.name}}
+                <select id="locations" v-model="selectedLocation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">                    
+                    <option v-for="location,index in locations" :key="index" :value="location.id">
+                        {{ location.name }}
                     </option>  
                 </select>
             </div>
@@ -50,8 +47,8 @@
             <div class="mt-5">
                 <label for="floor" class="block mb-2 text-sm font-medium text-gray-900">Seleccione el Piso </label>
 
-                <select id="floor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
-                    <option v-for="floor, index in floors" :key="index" :value="floor.name">
+                <select id="floor" v-model="selectedFloor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
+                    <option v-for="floor, index in floors" :key="index" :value="floor.id">
                         {{ floor.name}}
                     </option>  
                 </select>
@@ -60,11 +57,19 @@
             <div class="mt-5">
                 <label for="Description" class="block text-sm text-gray-500">Description</label>
 
-                <textarea placeholder="lorem..." class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40  "></textarea>
+                <textarea placeholder="lorem..." v-model="descriptionUbication" class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40  "></textarea>
             </div>
             <div>
-
+                {{ nameUbication }} - {{ selectedTypeUbication}} - {{ selectedLocation }} - {{ selectedFloor }}
+            {{ descriptionUbication }}
             </div>
+           
+        </div>
+        
+    </section>
+    <section>
+        <div class="flex justify-center mt-4">
+            <button @click="onSubmit" class=" bg-follow px-3 py-2 rounded-xl text-white" type="button"> Guardar</button>
         </div>
     </section>
 
@@ -78,6 +83,12 @@
     const locations = ref ();
     const floors = ref();
 
+    const nameUbication = ref('');
+    const selectedTypeUbication = ref('');
+    const selectedLocation = ref('');
+    const selectedFloor = ref('');
+    const descriptionUbication = ref('');
+
     const onChangeFile = (event: Event) =>{
         const [_file] = (event.target as HTMLInputElement).files as FileList;
         inputFile.value = _file
@@ -90,6 +101,13 @@
 
             const formData = new FormData();
             const file = inputFile.value;
+
+            // Añadir los campos de texto
+            formData.append('nameUbication', nameUbication.value);
+            formData.append('typeUbication', selectedTypeUbication.value);
+            formData.append('location', selectedLocation.value);
+            formData.append('floor', selectedFloor.value);
+            formData.append('descriptionUbication', descriptionUbication.value);
 
             formData.append('file', file);
             console.log(file);

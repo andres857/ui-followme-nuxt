@@ -21,7 +21,7 @@
     const ubicationStore = useUbicationsStore();
     const searchValueStore = useSearchValueStore(); 
 
-    ubicationStore.fetchUbicationsbyType('Destinos');
+    ubicationStore.fetchUbicationsbyType('Destino');
     console.log( ubicationStore.ubications);
 
     const ubicationFound = computed(()=> {
