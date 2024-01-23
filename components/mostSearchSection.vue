@@ -7,7 +7,7 @@
             <div class="grid justify-items-center content-start gap-y-1 overflow-y-auto"                 >
                 <div class="w-11/12 h-[50px]" 
                     v-for="ubication in ubicationFound" :key="ubication.id" >
-                    <itemMostSearch :nombre="ubication.name"/>
+                    <itemMostSearch :nombre="ubication.ubication_name"/>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
     import itemMostSearch from './itemMostSearch.vue';
     
     const ubicationStore = useUbicationsStore();
-    const searchValueStore = useSearchValueStore(); 
+    const searchValueStore = useSearchValueStore();
 
     ubicationStore.fetchUbicationsbyType('Destino');
     console.log( ubicationStore.ubications);

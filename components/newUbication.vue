@@ -12,7 +12,7 @@
 
                 <p class="mt-2 text-xs tracking-wide text-gray-500"> Cargue o suelte su archivo PNG.</p>
 
-                <input id="dropzone-image" name="file" type="file" class="hidden" @change="onChangeFile"   accept="image/jpeg, image/png" />
+                <input id="dropzone-image" name="file" type="file" class="hidden" @change="onChangeFile" accept="image/jpeg, image/png" />
                 <pre> {{inputFile?.name}} </pre>
             </label>
         </div>
@@ -38,7 +38,7 @@
                 <label for="Locations" class="block mb-2 text-sm font-medium text-gray-900">Seleccione la Sede </label>
 
                 <select id="locations" v-model="selectedLocation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">                    
-                    <option v-for="location,index in locations" :key="index" :value="location.id">
+                    <option v-for="location in locations" :key="locations.id" :value="location.id">
                         {{ location.name }}
                     </option>  
                 </select>
@@ -80,7 +80,7 @@
 
     const inputFile = ref<File | null >(null);
     const ubicationsTypes = ref();
-    const locations = ref ();
+    const locations = ref();
     const floors = ref();
 
     const nameUbication = ref('');
@@ -95,7 +95,6 @@
     } 
 
     const onSubmit = async () =>{
-        console.log('onsubmit');
         try {
             if(!inputFile.value) return;
 

@@ -35,9 +35,10 @@
                 <!-- content cards section -->
                 <div class="h-[80vh] grid grid-cols-3 gap-x-4 gap-y-5 bg-slate-200 p-5 overflow-y-auto">
 
-                    <ubicationCard2 class="h-[255px]" v-if="sidebarStore.currentSelection === 'Inicio'" v-for=" ubication in ubicationStore.ubications" :key="ubication.name" :nameUbication="ubication.name" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="'Sede H'" :floor="'Piso 1'" :type="'zonasQR'"/>
+                    <ubicationCard2 class="h-[255px]" v-if="sidebarStore.currentSelection === 'Inicio'" 
+                        v-for=" ubication in ubicationStore.ubications" :key="ubication.ubication_name" :nameUbication="ubication.ubication_name" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="'Sede H'" :floor="'Piso 1'" :type="'zonasQR'"/>
                     
-                    <ubicationCard2  class="h-[255px]" v-else-if="sidebarStore.currentSelection === 'Destino'" v-for=" ubication in ubicationStore.ubications"  :nameUbication="ubication.name" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="'Sede H'" :floor="'Piso 1'" :type="'Destinos'"/>
+                    <ubicationCard2  class="h-[255px]" v-else-if="sidebarStore.currentSelection === 'Destino'" v-for=" ubication in ubicationStore.ubications" :key="ubication.ubication_name" :nameUbication="ubication.ubication_name" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="'Sede H'" :floor="'Piso 1'" :type="'Destinos'"/>
 
                 </div>
             </div>
