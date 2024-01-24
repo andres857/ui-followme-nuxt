@@ -10,6 +10,5 @@ export const useSidebarStore = defineStore('sidebar', () => {
     currentSelection.value = selection;
     console.log('store', currentSelection.value);      
   }
-
   return { currentSelection, setSelection };
 });
