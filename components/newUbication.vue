@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref } from 'vue';
+    import {onMounted, ref } from 'vue';
 
     const inputFile = ref<File | null >(null);
     const ubicationsTypes = ref();
