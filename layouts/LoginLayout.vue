@@ -10,8 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-    import login from '~/components/loginCard.vue'
+    import login from '~/components/auth/loginCard.vue'
     import FooterLogin from '~/components/footer/footerLogin.vue'
-
 </script>
 
