@@ -48,10 +48,11 @@
                 <label for="floor" class="block mb-2 text-sm font-medium text-gray-900">Seleccione el Piso </label>
 
                 <select id="floor" v-model="selectedFloor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
-                    <option v-for="floor, index in floors" :key="index" :value="floor.id">
-                        {{ floor.name}}
+                    <option v-for="floor, index in floors" :key="index" :value="floors">
+                        {{ floor.name}} - {{ floor.id }}
                     </option>  
                 </select>
+                lpp
             </div>
 
             <div class="mt-5">
@@ -60,8 +61,8 @@
                 <textarea placeholder="lorem..." v-model="descriptionUbication" class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40  "></textarea>
             </div>
             <div>
-                {{ nameUbication }} - {{ selectedTypeUbication}} - {{ selectedLocation }} - {{ selectedFloor }}
-            {{ descriptionUbication }}
+                {{ nameUbication }} - {{ selectedTypeUbication}} - {{ selectedLocation }} - {{ selectedFloor }} -
+            {{ descriptionUbication }} - {{ floors }} {{ 'hola' }} - "hola"
             </div>
            
         </div>
@@ -79,14 +80,14 @@
     import {onMounted, ref } from 'vue';
 
     const inputFile = ref<File | null >(null);
-    const ubicationsTypes = ref();
-    const locations = ref();
-    const floors = ref();
+    const ubicationsTypes = ref<any>();
+    const locations = ref<any>();
+    const floors = ref<any>([]);
 
-    const nameUbication = ref('');
-    const selectedTypeUbication = ref('');
-    const selectedLocation = ref('');
-    const selectedFloor = ref('');
+    const nameUbication = ref<any>([]);
+    const selectedTypeUbication = ref<any>([]);
+    const selectedLocation = ref<any>([]);
+    const selectedFloor = ref<any>([]);
     const descriptionUbication = ref('');
 
     const onChangeFile = (event: Event) =>{

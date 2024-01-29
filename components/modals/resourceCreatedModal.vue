@@ -21,9 +21,11 @@
                         <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                         <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Ubicacion creada </h3>
                         <div class="mt-2">                       
-                            <p class="text-sm text-gray-500"> Nombre: {{ name }} </p>
-                            <p class="text-sm text-gray-500">Sede: {{location}}</p>
-                            <p class="text-sm text-gray-500">Tipo de ubicacion: {{typeUbication}}</p>
+                            <p class="text-sm text-gray-500"> <strong>Nombre:</strong> {{ name }} </p>
+                            <p class="text-sm text-gray-500"> <strong>Tipo de ubicacion:</strong> {{typeUbication}}</p>
+                            <p class="text-sm text-gray-500"> <strong>Sede:</strong> {{location}}</p>
+                            <p class="text-sm text-gray-500"> <strong>Piso:</strong> {{floor}}</p>
+
                         </div>
                         </div>
                     </div>
@@ -36,7 +38,6 @@
             </transition>
             </div>
         </div>
-        
     </div>
     </transition>
 </template>
@@ -45,8 +46,9 @@
     import { defineProps } from 'vue';
     defineProps({
         name: String,
+        typeUbication: String,
         location: String,
-        typeUbication: String
+        floor: String,
     });
     const modal = ref(true);
 </script>

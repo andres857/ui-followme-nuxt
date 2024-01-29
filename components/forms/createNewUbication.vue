@@ -27,7 +27,7 @@
             <div class="mt-5">
                 <label for="typeUbication" class="block mb-2 text-sm font-medium text-gray-900">Seleccione el tipo de ubicacion</label>
                 <select id="typeUbication" v-model="selectedTypeUbication" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
-                    <option v-for="type, index in ubicationsTypes" :key="index" :value="type.id">
+                    <option v-for="type, index in ubicationsTypes" :key="index" :value="type">
                         {{ type.name}}
                     </option>                    
                 </select>
@@ -36,7 +36,7 @@
             <div class="mt-5">
                 <label for="Locations" class="block mb-2 text-sm font-medium text-gray-900">Seleccione la Sede </label>
                 <select id="locations" v-model="selectedLocation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">                    
-                    <option v-for="location in locations" :key="locations.id" :value="location.id">
+                    <option v-for="location in locations" :key="locations.id" :value="location">
                         {{ location.name }}
                     </option>  
                 </select>
@@ -45,7 +45,7 @@
             <div class="mt-5">
                 <label for="floor" class="block mb-2 text-sm font-medium text-gray-900">Seleccione el Piso </label>
                 <select id="floor" v-model="selectedFloor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
-                    <option v-for="floor, index in floors" :key="index" :value="floor.id">
+                    <option v-for="floor, index in floors" :key="index" :value="floor">
                         {{ floor.name}}
                     </option>  
                 </select>
@@ -57,7 +57,7 @@
             </div>
             <div>
                 {{ nameUbication }} - {{ selectedTypeUbication}} - {{ selectedLocation }} - {{ selectedFloor }}
-            {{ descriptionUbication }}
+            {{ descriptionUbication }} 
             </div>
 
             </div>
@@ -70,9 +70,10 @@
     </section>
     <section v-else>
         <resourceCreatedModal 
-            :name="responseServer.data.nameUbication"
+            :name="responseServer.data.name"
             :typeUbication="responseServer.data.typeUbication"
             :location="responseServer.data.location"
+            :floor=" responseServer.data.floor"
         />
     </section>
 </template>
@@ -82,15 +83,15 @@
     import resourceCreatedModal from '../modals/resourceCreatedModal.vue';
 
     const inputFile = ref<File | null >(null);
-    const ubicationsTypes = ref();
-    const locations = ref();
-    const floors = ref();
+    const ubicationsTypes = ref<any>([]);
+    const locations = ref<any>([]);
+    const floors = ref<any>([]);
 
     const nameUbication = ref('');
-    const selectedTypeUbication = ref('');
-    const selectedLocation = ref('');
-    const selectedFloor = ref('');
-    const descriptionUbication = ref('');
+    const selectedTypeUbication = ref<any>([]);
+    const selectedLocation = ref<any>([]);
+    const selectedFloor = ref<any>([]);
+    const descriptionUbication = ref<any>([]);
 
     const responseServer = ref<any>([]);
 
@@ -108,13 +109,12 @@
 
             // Añadir los campos de texto
             formData.append('nameUbication', nameUbication.value);
-            formData.append('typeUbication', selectedTypeUbication.value);
-            formData.append('location', selectedLocation.value);
-            formData.append('floor', selectedFloor.value);
+            formData.append('typeUbication', JSON.stringify(selectedTypeUbication.value));
+            formData.append('location', JSON.stringify(selectedLocation.value));
+            formData.append('floor', JSON.stringify(selectedFloor.value));
             formData.append('descriptionUbication', descriptionUbication.value);
 
             formData.append('file', file);
-            console.log(file);
             
             const response = await $fetch('http://localhost:3026/ubications/new/upload', {
                 method: 'POST',
@@ -124,6 +124,8 @@
             console.log('Respuesta del servidor:', response);
             responseServer.value= response;
         } catch (error: any) {
+            console.log(error);
+            
             console.log(error.response._data);
             responseServer.value = error.response._data;
         }
@@ -145,5 +147,4 @@
             console.error('Error fetching Types:', error);
         }
     })
-
 </script>
