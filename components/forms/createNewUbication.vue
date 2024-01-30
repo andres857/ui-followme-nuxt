@@ -101,8 +101,13 @@
 </template>
 
 <script lang="ts" setup>
+    import { useRuntimeConfig } from '#app';
     import { ref,onMounted } from 'vue';
     import resourceCreatedModal from '../modals/resourceCreatedModal.vue';
+
+    const config = useRuntimeConfig();
+    const apiBase = config.public.apiBase;
+
 
     const inputFile = ref<File | null >(null);
     const ubicationsTypes = ref<any>([]);
@@ -138,7 +143,7 @@
 
             formData.append('file', file);
             
-            const response = await $fetch('http://localhost:3026/ubications/new/upload', {
+            const response = await $fetch(`${apiBase}/ubications/new/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -154,11 +159,12 @@
     const computedShowModal = computed (()=>{
         return responseServer.value.statusCode === 200 ? true : false;
     })
+
     onMounted(async ()=>{
         try {
-            const typeUbication = await $fetch(`http://localhost:3026/type-ubications`);
-            const location = await $fetch(`http://localhost:3026/locations`);
-            const floor = await $fetch(`http://localhost:3026/floors`);
+            const typeUbication = await $fetch(`${apiBase}/type-ubications`);
+            const location = await $fetch(`${apiBase}/locations`);
+            const floor = await $fetch(`${apiBase}/floors`);
             
             ubicationsTypes.value = typeUbication;
             locations.value = location;
