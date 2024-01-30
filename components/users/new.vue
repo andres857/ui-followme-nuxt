@@ -165,7 +165,13 @@
     
     onMounted(async ()=>{
         try{
-            const client = await $fetch('http://localhost:3026/clients')
+            let token = localStorage.getItem('token');
+            const client = await $fetch('http://localhost:3026/clients', {
+                method: 'GET',
+                headers: {
+                    'authorization': 'Bearer '+token,
+                },
+            })
             console.log('mounted');
             console.log(client);
 
