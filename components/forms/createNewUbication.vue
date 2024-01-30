@@ -25,43 +25,11 @@
             </div>
 
             <div class="mt-5">
-                <label for="typeUbication" class="block mb-2 text-sm font-medium text-gray-900">Seleccione el tipo de ubicacion</label>
-                <select id="typeUbication" v-model="selectedTypeUbication" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
-                    <option v-for="type, index in ubicationsTypes" :key="index" :value="type">
-                        {{ type.name}}
-                    </option>                    
-                </select>
-            </div>
-
-            <div class="mt-5" v-if="selectedTypeUbication.id === 2">
-                <label for="direction" class="block mb-2 text-sm font-medium text-gray-900">Seleccione la direccion</label>
-                <select id="selection" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
-                    <option>
-                        Arriba
-                    </option>  
-                    <option>
-                        Abajo
-                    </option>
-                    <option>
-                        Derecha
-                    </option>
-                    <option>
-                        Izquierda
-                    </option>                      
-                </select>
-            </div>
-
-            <div class="mt-5"  v-if="selectedTypeUbication.id === 2">
-                <label for="indication" class="block text-sm text-gray-500">Indicacion</label>
-                <textarea placeholder="Siga derecho hasta ..." class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40  "></textarea>
-            </div>
-
-            <div class="mt-5">
                 <label for="Locations" class="block mb-2 text-sm font-medium text-gray-900">Seleccione la Sede </label>
                 <select id="locations" v-model="selectedLocation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">                    
                     <option v-for="location in locations" :key="locations.id" :value="location">
                         {{ location.name }}
-                    </option>  
+                    </option>
                 </select>
             </div>
 
@@ -74,12 +42,30 @@
                 </select>
             </div>
 
-            <div class="mt-5" v-if="selectedTypeUbication.id !== 2">
-                <label for="Description" class="block text-sm text-gray-500">Description</label>
-                <textarea placeholder="lorem..." v-model="descriptionUbication" class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40  "></textarea>
+            <div class="mt-5">
+                <label for="typeUbication" class="block mb-2 text-sm font-medium text-gray-900">Seleccione el tipo de ubicacion</label>
+                <select id="typeUbication" v-model="selectedTypeUbication" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
+                    <option v-for="type, index in ubicationsTypes" :key="index" :value="type">
+                        {{ type.name}}
+                    </option>                    
+                </select>
+            </div>
+
+            <div class="mt-5" v-if="selectedTypeUbication.id === 2">
+                <label for="direction" class="block mb-2 text-sm font-medium text-gray-900">Seleccione la direccion</label>
+                <select id="selection" v-model="selectedDirection" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
+                    <option v-for="direction, index in directions" :key="index" :value="direction">
+                        {{ direction }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="mt-5">
+                <label for="Description" class="block text-sm text-gray-500">{{selectedTypeUbication.id === 2 ? 'Indicacion' : 'Descripcion'}}</label>
+                <textarea placeholder="" v-model="descriptionUbication" class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40  "></textarea>
             </div>
             <div>
-                {{ nameUbication }} - {{ selectedTypeUbication}} - {{ selectedLocation }} - {{ selectedFloor }}
+               {{ selectedDirection }} - {{ indication }} {{ nameUbication }} - {{ selectedTypeUbication}} - {{ selectedLocation }} - {{ selectedFloor }}
             {{ descriptionUbication }} 
             </div>
 
@@ -108,7 +94,6 @@
     const config = useRuntimeConfig();
     const apiBase = config.public.apiBase;
 
-
     const inputFile = ref<File | null >(null);
     const ubicationsTypes = ref<any>([]);
     const locations = ref<any>([]);
@@ -119,6 +104,9 @@
     const selectedLocation = ref<any>([]);
     const selectedFloor = ref<any>([]);
     const descriptionUbication = ref<any>([]);
+
+    const directions = [ 'Adelante', 'Derecha', 'Izquierda'];
+    const selectedDirection = ref<any>('');
 
     const responseServer = ref<any>([]);
 
@@ -140,6 +128,7 @@
             formData.append('location', JSON.stringify(selectedLocation.value));
             formData.append('floor', JSON.stringify(selectedFloor.value));
             formData.append('descriptionUbication', descriptionUbication.value);
+            formData.append('direction', selectedDirection.value);
 
             formData.append('file', file);
             
