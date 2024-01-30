@@ -65,7 +65,7 @@
     const modalStore = useModalStatusStore();
 
     const showCreateNewUbication = ()=>{
-        modalStore.showModal();
+        // modalStore.showModal();
         sidebarStore.currentSelection = 'CreateNewUbication';
     }
 
