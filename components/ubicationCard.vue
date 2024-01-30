@@ -2,14 +2,14 @@
     <div class="flex max-w overflow-hidden bg-white rounded-lg shadow-lg">
         <!-- section Image -->
         <div class="h-full w-5/12 bg-slate-500 overflow-hidden">
-            <img src="https://winbox-assets.sfo3.digitaloceanspaces.com/followtest/IMG_1911.jpg" alt=""  class="object-cover object-center w-full " style="height: 87%;">
+            <img :src="displayImageUrl" alt=""  class="object-cover object-center w-full " style="height: 87%;">
             <div class="flex items-center px-4 py-3 gap-2" :class="bgTypeUbication" style="height: 13%;">
 
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFfFFF" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
                 </svg>
 
-                <h3 class="text-sm font-semibold text-white">{{ props.type }}</h3>
+                <h3 class="text-sm font-semibold text-white">{{ displayType }}</h3>
             </div>
         </div>
         <!-- section content -->
@@ -54,25 +54,42 @@
 
     const props = defineProps({
         nameUbication: String,
+        imageUrl: String,
         description: String,
         location: String,
         floor: String,
         type: String
     });
 
+    const displayImageUrl = computed(() => {
+        if (props.imageUrl === '') {
+            const imageUrlAlternative = 'https://winbox-assets.sfo3.digitaloceanspaces.com/followtest/IMG_1911.jpg';
+            return imageUrlAlternative;
+        }
+        return props.imageUrl; // Retorna el tipo original para otros casos
+    });
+
+    const displayType = computed(() => {
+        if (props.type === 'Inicio') {
+            return 'Zona QR';
+        }
+        return props.type; // Retorna el tipo original para otros casos
+    });
+
+
     const bgTypeUbication = computed(() => {
     let bgType = '';
-    switch (props.type) {
-        case 'zonasQR':
-            bgType = 'bg-red-500';
-            break;
-        case 'Destinos':
-            bgType = 'bg-green-500';
-            break;
-        // Añade más casos según sea necesario
-        default:
-            bgType = 'bg-gray-400'; // Un color por defecto
-    }
-    return bgType;
-});
+        switch (props.type) {
+            case 'Inicio':
+                bgType = 'bg-red-500';
+                break;
+            case 'Destino':
+                bgType = 'bg-green-500';
+                break;
+            // Añade más casos según sea necesario
+            default:
+                bgType = 'bg-gray-400'; // Un color por defecto
+        }
+        return bgType;
+    });
 </script>

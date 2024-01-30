@@ -3,37 +3,46 @@ import { defineStore } from "pinia";
 import { type APIResponseUbication } from "../types/api";
 
 export const useUbicationsStore = defineStore('ubications', () => {
-    const ubications = ref<APIResponseUbication[]>([]);
+    const ubications = ref<any[]>([]);
 
-    async function fetchUbicationsbyType(name: string) {
+    async function fetchFloorById(idFloor: number) {
         try {
-            const response = await fetch(`http://localhost:3026/ubications?type=${name}`);
-            console.log('request endpoint', name);
-            
-            if (response.ok) {
-                console.log('content', response);
-                
-                const ubicationsAPI = await $fetch<APIResponseUbication[]>(`http://localhost:3026/ubications?type=${name}`);
-                ubications.value = ubicationsAPI;
-            } else {
-                console.error('Error fetching ubications:', response.statusText);
-            }
+            const floor = await $fetch<any>(`http://localhost:3026/floors/${idFloor}`);
+            return floor;
         } catch (error) {
-            console.error('Error fetching ubications:', error);
+            console.error('Error fetching floor:', error);
         }
     }
 
-    async function fetchTypesUbication() {
+    async function fetchLocationById(idLocation: number) {
         try {
-            const response = await fetch(`http://localhost:3026/type-ubications`);
-            console.log('request endpoint typeubications');
-            
-            if (response.ok) {
-                const typeUbicationAPI = await $fetch<APIResponseUbication[]>(`http://localhost:3026/type-ubications/`);
-                ubications.value = typeUbicationAPI;
-            } else {
-                console.error('Error fetching ubications:', response.statusText);
-            }
+            const location = await $fetch<any>(`http://localhost:3026/locations/${idLocation}`);
+            return location;
+        } catch (error) {
+            console.error('Error fetching Location:', error);
+        }
+    }
+
+    async function fetchUbicationsbyType(name: string) {
+        try {
+            const ubicationsAPI = await $fetch<any[]>(`http://localhost:3026/ubications?type=${name}`);
+            ubications.value = await Promise.all(ubicationsAPI.map( async  (ubication) => {    
+                console.log(ubication);
+                            
+                const floor = await fetchFloorById(ubication.id_floor);
+                const location = await fetchLocationById( ubication.id_location);
+                
+                const data = {
+                    id: ubication.id_ubication,
+                    name: ubication.ubication_name,
+                    imageUrl: ubication.imageUrl,
+                    location: location.name,
+                    floor: floor.name,
+                    ubicationType: ubication.type_name
+                }
+                return data;
+            }));
+
         } catch (error) {
             console.error('Error fetching ubications:', error);
         }
@@ -44,19 +53,5 @@ export const useUbicationsStore = defineStore('ubications', () => {
 export const useSearchValueStore = defineStore('searchValue', ()=>{
     const searchInput = ref('')
     return { searchInput }
-});
-
-export const useCounterStore = defineStore('counter', () => {
-    const count = ref(0)
-    const name = ref('Eduardo')
-    const doubleCount = computed(() => count.value * 2)
-    function increment() {
-      count.value++
-    }
-    function decrement() {
-        count.value--
-    }
-  
-    return { count, name, doubleCount, increment, decrement }
 });
   

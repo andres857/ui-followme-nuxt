@@ -7,12 +7,12 @@ export const useModalStatusStore = defineStore('createResource', () => {
   
   function showModal() {
     modal.value = true;
-    console.log('store', modal.value);      
+    console.log('store show modal', modal.value);      
   }
 
   function hideModal() {
     modal.value = false;
-    console.log('store', modal.value);      
+    console.log('store hide modal', modal.value);      
   }
 
   return { modal, showModal, hideModal};

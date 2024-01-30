@@ -36,9 +36,9 @@
                 <!-- content cards section -->
                 <div class="h-[80vh] grid grid-cols-3 gap-x-4 gap-y-5 bg-slate-200 p-5 overflow-y-auto">
                     <ubicationCard class="h-[255px]" v-if="sidebarStore.currentSelection === 'Inicio'" 
-                        v-for=" ubication in ubicationStore.ubications" :key="ubication.ubication_name" :nameUbication="ubication.ubication_name" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="'Sede H'" :floor="'Piso 1'" :type="'zonasQR'"/>
+                        v-for=" ubication in ubicationStore.ubications" :key="ubication.id" :nameUbication="ubication.name" :imageUrl="ubication.imageUrl" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="ubication.location" :floor="ubication.floor" :type="ubication.ubicationType"/>
                     
-                    <ubicationCard  class="h-[255px]" v-else-if="sidebarStore.currentSelection === 'Destino'" v-for=" ubication in ubicationStore.ubications" :key="ubication.ubication_name" :nameUbication="ubication.ubication_name" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="'Sede H'" :floor="'Piso 1'" :type="'Destinos'"/>
+                    <ubicationCard  class="h-[255px]" v-else-if="sidebarStore.currentSelection === 'Destino'" v-for=" ubication, index in ubicationStore.ubications" :key="index" :nameUbication="ubication.name" :imageUrl="ubication.imageUrl" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="ubication.location" :floor="ubication.floor" :type="ubication.ubicationType"/>
 
                     <createNewUbication class="col-span-3 justify-center w-full" v-else-if="sidebarStore.currentSelection === 'CreateNewUbication'"/>
                     <resourceCreatedModal v-else-if="modalStore.modal"/>
@@ -57,6 +57,7 @@
     import resourceCreatedModal from '~/components/modals/resourceCreatedModal.vue';
 
     import { useSidebarStore } from '~/stores/sidebar';
+    import { useUbicationsStore } from '~/stores/ubications';
     import { useModalStatusStore } from '~/stores/modals';
 
     const ubicationStore = useUbicationsStore();
