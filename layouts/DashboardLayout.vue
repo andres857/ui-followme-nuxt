@@ -40,6 +40,8 @@
                     
                     <ubicationCard  class="h-[255px]" v-else-if="sidebarStore.currentSelection === 'Destino'" v-for=" ubication, index in ubicationStore.ubications" :key="index" :nameUbication="ubication.name" :imageUrl="ubication.imageUrl" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="ubication.location" :floor="ubication.floor" :type="ubication.ubicationType"/>
 
+                    <ubicationCard  class="h-[255px]" v-else-if="sidebarStore.currentSelection === 'Etapa'" v-for=" ubication, index in ubicationStore.ubications" :nameUbication="ubication.name" :imageUrl="ubication.imageUrl" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="ubication.location" :floor="ubication.floor" :type="ubication.ubicationType"/>
+
                     <createNewUbication class="col-span-3 justify-center w-full" v-else-if="sidebarStore.currentSelection === 'CreateNewUbication'"/>
                     <resourceCreatedModal v-else-if="modalStore.modal"/>
                 </div>
