@@ -25,5 +25,5 @@
     import indicator from '~/components/progress/indicator.vue';
     import timeProgress from '~/components/progress/timeProgress.vue';
     import footerWeb from '~/components/footer/footerWeb.vue';
- 
+
 </script>

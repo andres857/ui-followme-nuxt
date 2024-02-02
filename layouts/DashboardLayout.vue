@@ -10,7 +10,25 @@
                 <div class=" h-[8vh] flex justify-around items-center">
 
                     <div>
-                        <h3> {{ computedSelectionTitle }}</h3>
+                        <div class="w-full text-left">
+                            <nav aria-label="breadcrumb" class="block w-full">
+                                <ol class="flex w-full flex-wrap items-center rounded-md bg-blue-gray-50 bg-opacity-60 py-2 px-4">
+                                    <li class="flex cursor-pointer items-center font-sans text-sm font-normal leading-normal text-blue-gray-900 antialiased transition-colors duration-300 hover:text-pink-500">
+                                        <a class="opacity-60" href="#">
+                                        <span>Ubications</span>
+                                        </a>
+                                        <span class="pointer-events-none mx-2 select-none font-sans text-sm font-normal leading-normal text-blue-gray-500 antialiased">
+                                        /
+                                        </span>
+                                    </li>
+                                    <li class="flex cursor-pointer items-center font-sans text-sm font-normal leading-normal text-blue-gray-900 antialiased transition-colors duration-300 hover:text-pink-500">
+                                        <a class="opacity-60" href="#">
+                                        <span>{{ computedSelectionTitle }}</span>
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
 
                     <div class="">
@@ -29,12 +47,13 @@
 
                 </div>
                 <!-- search and filter section -->
-                <div class="h-[12vh] flex justify-center items-center">
+                <div v-if="!showSearchBar" class="h-[12vh] flex justify-center items-center" >
                     <searchUbication class="w-[650px]"/>
                 </div>
 
                 <!-- DashBoard Content -->
                 <!-- renderizar el content de manera condicional -->
+                <component :is="currentComponentContainer"></component>
 
             </div>
         </section>
@@ -45,22 +64,50 @@
     import { computed } from 'vue';
     import sideBar from '~/components/sideBar.vue';
     import searchUbication from '~/components/searchUbication.vue';
+    import ContentUbications from '~/components/ContentUbications.vue';
+    import createNewUbication from '~/components/forms/createNewUbication.vue';
     import resourceCreatedModal from '~/components/modals/resourceCreatedModal.vue';
 
     import { useSidebarStore } from '~/stores/sidebar';
-    import { useUbicationsStore } from '~/stores/ubications';
+    import { useUbicationFormStore } from '~/stores/ubications';
     import { useModalStatusStore } from '~/stores/modals';
 
-    const ubicationStore = useUbicationsStore();
+    const ubicationFormStore = useUbicationFormStore();
     const sidebarStore = useSidebarStore();
     const modalStore = useModalStatusStore();
 
-    const showCreateNewUbication = ()=>{
-        sidebarStore.currentSelection = 'CreateNewUbication';
+    const showSearchBar = ref<Boolean>(false)
+
+    const showCreateNewUbication = ()=>{        
+        sidebarStore.resetSidebarState();
+        ubicationFormStore.showCreateUbication();
+        showSearchBar.value = ubicationFormStore.isCreatingUbication;
     }
 
     const computedSelectionTitle = computed(()=>{
-        return sidebarStore.currentSelection === 'Inicio' ? 'Zonas QR' : 'Destinos'
+        return sidebarStore.subSelection === 'Inicio' ? 'Zonas QR' : 'Destinos'
     })
+
+    const currentComponentContainer = computed(() => {
+        if ( sidebarStore.subSelection === 'Etapa') {
+            console.log('Etapa');
+        ubicationFormStore.resetViewState();
+            return ContentUbications;
+        } else if(sidebarStore.subSelection === 'Inicio'){
+            console.log('Inicio');
+        ubicationFormStore.resetViewState();
+            return ContentUbications;
+        }else if (sidebarStore.subSelection === 'Destino'){
+            console.log('Destino');
+        ubicationFormStore.resetViewState();
+            return ContentUbications;
+        }else if (ubicationFormStore.isCreatingUbication){
+            console.log('here');
+        ubicationFormStore.resetViewState();
+            return createNewUbication;
+        }else{
+            console.log('noting fir view');
+        }
+    });
 
 </script>

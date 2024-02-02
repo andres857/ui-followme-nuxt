@@ -8,7 +8,7 @@
         </header>
 
         <section class=" h-[80vh] grid grid-rows content-center mx-4 ">
-            <mostSearchSection/>
+            <MostSearchSection/>
         </section>
         <footer class="flex justify-center items-center h-[10vh] w-full">
             <footerWeb />
@@ -19,6 +19,6 @@
 
 <script lang="ts" setup>
     import searchUbication from '~/components/searchUbication.vue';
-    import mostSearchSection from '../components/mostSearchSection.vue';
+    import MostSearchSection from '../components/mostSearchSection.vue';
     import footerWeb from '~/components/footer/footerWeb.vue';
 </script>

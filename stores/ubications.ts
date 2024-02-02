@@ -53,8 +53,27 @@ export const useUbicationsStore = defineStore('ubications', () => {
     return { ubications, fetchUbicationsbyType };
 });
 
+export const useUbicationFormStore = defineStore('ubicationForm', () => {
+    const isCreatingUbication = ref(false);
+  
+    function showCreateUbication() {
+      isCreatingUbication.value = true;
+      console.log('store', isCreatingUbication.value);
+      
+    }
+    function hiddeCreateUbication() {
+        isCreatingUbication.value = false;
+    }
+    function resetViewState() {
+        isCreatingUbication.value = false; // o cualquier valor predeterminado
+      }
+    return { isCreatingUbication, showCreateUbication,hiddeCreateUbication, resetViewState };
+});
+  
 export const useSearchValueStore = defineStore('searchValue', ()=>{
-    const searchInput = ref('')
-    return { searchInput }
+    const searchInput = ref('');
+    const searchStart = ref('');
+    const searchDestiny = ref('');
+    return { searchInput, searchStart,searchDestiny }
 });
   

@@ -35,11 +35,18 @@
 
             <div class="mt-5">
                 <label for="floor" class="block mb-2 text-sm font-medium text-gray-900">Seleccione el Piso </label>
-                <select id="floor" v-model="selectedFloor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
-                    <option v-for="floor, index in floors" :key="index" :value="floor">
-                        {{ floor.name}}
-                    </option>  
-                </select>
+                    <div class="flex gap-x-3">
+                        <select id="floor" v-model="selectedFloor" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -m-1">
+                            <option v-for="floor, index in floors" :key="index" :value="floor">
+                                {{ floor.name}}
+                            </option>  
+                        </select>
+                    <div class=" flex ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-5">
@@ -65,7 +72,7 @@
                 <textarea placeholder="" v-model="descriptionUbication" class="block mt-1 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40  "></textarea>
             </div>
             <div>
-               {{ selectedDirection }} - {{ indication }} {{ nameUbication }} - {{ selectedTypeUbication}} - {{ selectedLocation }} - {{ selectedFloor }}
+               {{ selectedDirection }} - {{ nameUbication }} - {{ selectedTypeUbication}} - {{ selectedLocation }} - {{ selectedFloor }}
             {{ descriptionUbication }} 
             </div>
 
