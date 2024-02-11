@@ -12,8 +12,7 @@ services:
     ports:
       - 3001:3000
 
-  production:
-    image: nginx:alpine3.18
+  deploy:
     build:
       context: .
       target: build
