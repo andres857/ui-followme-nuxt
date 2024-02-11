@@ -18,7 +18,7 @@ services:
       target: build
     restart: always
     ports:
-      - 80:80
+      - 80:3000
     logging:
       driver: "json-file"
       options:
