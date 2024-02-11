@@ -19,45 +19,44 @@
             </div>
 
             <div class="mt-6">
-                <button type="submit" @click="submit" class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-follow rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
+                <button type="submit" @click="auth" class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-follow rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
                     Entrar
                 </button>
             </div>
         </div>
 
         <p class="mt-8 text-xs font-light text-center text-gray-400">© 2023 Windows Channel. All rights reserved</p>
+        {{ token }}
     </div>
 </template>
 
-<script>
-    export default {
-        name: "login",
-        data(){
-            return {
-                email: '',
-                password: ''
-            }
-        },
-        methods: {
-            async submit(){
-                const auth = await fetch('http://localhost:3026/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: this.email,
-                        password: this.password
-                    })
-                });
+<script lang="ts" setup>
+import { atob } from 'js-base64'
 
-                if(auth.status === 200){
-                    const responseData = await auth.json();
-                    const token = responseData.access_token;
-                    localStorage.setItem('token', token);
-                    await this.$router.push({name: 'dashboard'});
-                }
-            }
+    const email = ref<string>();
+    const password = ref<string>();
+        const token = ref<string | null>( null );
+
+    const auth = async () => {
+        const login = await fetch('http://localhost:3026/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email.value,
+                password: password.value
+            })
+        });
+        if (login.status !== 401){
+            // Verificar si la cookie tiene valor
+            // return navigateTo('/dashboard');
+            const cookie = useCookie('jwt')
+            console.log(cookie);
+            
+            
         }
+        // return navigateTo('/login');
     }
+
 </script>
