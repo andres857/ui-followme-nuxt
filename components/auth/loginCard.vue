@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-lg shadow-slate-400">
+    <div class="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg dark:bg-slate-600 shadow-lg shadow-slate-400">
       <div class="flex justify-center mx-auto h-[100px] w-full">
         <img class="object-container h-full w-full" src="https://followme-assets.nyc3.cdn.digitaloceanspaces.com/FollowMeLogo.svg" alt="">
       </div>
@@ -16,7 +16,7 @@
   
         <div class="mt-4">
           <div class="flex items-center justify-between">
-            <label for="password" class="block text-sm text-gray-800 dark:text-gray-200">Clave</label>
+            <label for="p assword" class="block text-sm text-gray-800 dark:text-gray-200">Clave</label>
             <a href="#" class="text-xs text-gray-600 dark:text-gray-400 hover:underline"> Olvidaste tu clave</a>
           </div>
   
