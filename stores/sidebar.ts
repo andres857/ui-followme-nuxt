@@ -11,8 +11,8 @@ export const useSidebarStore = defineStore('sidebar', () => {
   }
 
   function resetSidebarState() {
-   mainSelection.value = ''; 
-   subSelection.value = ''; 
+    mainSelection.value = ''; 
+    subSelection.value = ''; 
   }
   return { mainSelection, subSelection, updateSelection, resetSidebarState };
 });

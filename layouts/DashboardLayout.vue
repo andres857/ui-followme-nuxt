@@ -67,6 +67,7 @@
     import ContentUbications from '~/components/ContentUbications.vue';
     import createNewUbication from '~/components/forms/createNewUbication.vue';
     import resourceCreatedModal from '~/components/modals/resourceCreatedModal.vue';
+    import ListUsers from '~/components/users/ListUsers.vue';
 
     import { useSidebarStore } from '~/stores/sidebar';
     import { useUbicationFormStore } from '~/stores/ubications';
@@ -91,22 +92,27 @@
     const currentComponentContainer = computed(() => {
         if ( sidebarStore.subSelection === 'Etapa') {
             console.log('Etapa');
-        ubicationFormStore.resetViewState();
+            ubicationFormStore.resetViewState();
             return ContentUbications;
         } else if(sidebarStore.subSelection === 'Inicio'){
             console.log('Inicio');
-        ubicationFormStore.resetViewState();
+            ubicationFormStore.resetViewState();
             return ContentUbications;
         }else if (sidebarStore.subSelection === 'Destino'){
             console.log('Destino');
-        ubicationFormStore.resetViewState();
+            ubicationFormStore.resetViewState();
             return ContentUbications;
+        }else if (sidebarStore.subSelection === 'users'){
+            console.log('Usuarios');
+            ubicationFormStore.resetViewState();
+            return ListUsers;
         }else if (ubicationFormStore.isCreatingUbication){
             console.log('here');
-        ubicationFormStore.resetViewState();
+            ubicationFormStore.resetViewState();
             return createNewUbication;
-        }else{
-            console.log('noting fir view');
+        }
+        else{
+            console.log('noting for view');
         }
     });
 

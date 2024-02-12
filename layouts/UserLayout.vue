@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-    import new_user from '~/components/users/new.vue'
+    import new_user from '~/components/users/create.vue'
 </script>
 
 
