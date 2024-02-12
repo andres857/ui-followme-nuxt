@@ -289,6 +289,24 @@ const isFormValid = computed(() => {
             </div>
 
             <div>
+              <label for="client" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Rol</label>
+              <select
+                name=""
+                id="rol"
+                v-model="selectRol"
+                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+              > 
+                <option value="" selected>Seleccione una opción</option>
+                <!-- <option v-for="rol, index in rol_list" :key="index" :value="rol.id">
+                  {{ rol.name }}
+                </option> -->
+                <option value="">administrador</option>
+                <option value="">secretario</option>
+                <option value="">a</option>
+              </select>
+            </div>
+
+            <div>
               <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email address</label>
               <div class="relative">
                 <input
@@ -306,7 +324,7 @@ const isFormValid = computed(() => {
               </div>
 
             </div>
-
+            <br>
             <div>
               <label for="password" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Contraseña</label>
               <input
@@ -364,6 +382,7 @@ const isFormValid = computed(() => {
 import { onMounted, ref, computed } from 'vue';
 
 const client_list = ref([]);
+const rol_list = ref([])
 
 const name = ref('');
 const lastname = ref('');
@@ -372,6 +391,7 @@ const password = ref('');
 const password_confirmation = ref('');
 
 const selectClient = ref('');
+const selectRol = ref('');
 const isEmailValid = ref(true);
 const arePasswordsEqual = ref(true);
 
@@ -405,7 +425,7 @@ const createUser = async () => {
     formData.append('email', email.value);
     formData.append('password', password.value);
     formData.append('client', selectClient.value);
-    formData.append('rol', 1);
+    formData.append('rol', selectRol.value);
 
     console.log('formData');
     console.log(formData);
@@ -419,7 +439,7 @@ const createUser = async () => {
         email: email.value,
         password: password.value,
         client: selectClient.value,
-        rol: 1,
+        rol: selectRol.value,
       }),
     });
 
@@ -442,14 +462,15 @@ onMounted(async () => {
   }
 });
 
+
 // Nueva función para validar partes del formulario (excepto el nombre)
 const validateFormParts = () => {
-  const isNameValid = name.value !== '';
+  const isLastNameValid = lastname.value !== '';
   const isClientValid = selectClient.value !== '';
   const isEmailValid = validateEmail(); // Utilizamos la función existente
   const arePasswordsEqual = validatePassword(); // Utilizamos la función existente
 
-  return isClientValid && isEmailValid && arePasswordsEqual;
+  return isClientValid && arePasswordsEqual;
 };
 
 // Función computada para determinar si el formulario en su conjunto es válido
