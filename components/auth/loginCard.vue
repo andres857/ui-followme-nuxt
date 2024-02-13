@@ -1,29 +1,29 @@
 <template>
-    <div class="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg dark:bg-slate-600 shadow-lg shadow-slate-400">
+    <div class="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg  shadow-lg shadow-slate-400">
       <div class="flex justify-center mx-auto h-[100px] w-full">
         <img class="object-container h-full w-full" src="https://followme-assets.nyc3.cdn.digitaloceanspaces.com/FollowMeLogo.svg" alt="">
       </div>
   
       <form class="mt-6">
         <div>
-          <label for="username" class="block text-sm text-gray-800 dark:text-gray-200">Usuario</label>
+          <label for="username" class="block text-sm text-gray-800 ">Usuario</label>
           <input
             type="text"
             v-model="username"
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
           />
         </div>
   
         <div class="mt-4">
           <div class="flex items-center justify-between">
-            <label for="p assword" class="block text-sm text-gray-800 dark:text-gray-200">Clave</label>
-            <a href="#" class="text-xs text-gray-600 dark:text-gray-400 hover:underline"> Olvidaste tu clave</a>
+            <label for="p assword" class="block text-sm text-gray-800 ">Clave</label>
+            <a href="#" class="text-xs text-gray-600  hover:underline"> Olvidaste tu clave</a>
           </div>
   
           <input
             type="password"
             v-model="password"
-            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
           />
         </div>
   
