@@ -90,25 +90,13 @@
     })
 
     const currentComponentContainer = computed(() => {
-        if ( sidebarStore.subSelection === 'Etapa') {
+        if ( sidebarStore.mainSelection === 'Ubications') {
             console.log('Etapa');
-            ubicationFormStore.resetViewState();
             return ContentUbications;
-        } else if(sidebarStore.subSelection === 'Inicio'){
-            console.log('Inicio');
-            ubicationFormStore.resetViewState();
-            return ContentUbications;
-        }else if (sidebarStore.subSelection === 'Destino'){
-            console.log('Destino');
-            ubicationFormStore.resetViewState();
-            return ContentUbications;
-        }else if (sidebarStore.subSelection === 'users'){
+        }else if (sidebarStore.mainSelection === 'Recursos'){
             console.log('Usuarios');
-            ubicationFormStore.resetViewState();
             return ListUsers;
         }else if (ubicationFormStore.isCreatingUbication){
-            console.log('here');
-            ubicationFormStore.resetViewState();
             return createNewUbication;
         }
         else{

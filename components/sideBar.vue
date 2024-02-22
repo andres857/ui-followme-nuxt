@@ -98,7 +98,7 @@
     const sidebarStore = useSidebarStore();
     // const ubicationStore = useUbicationsStore();
     
-    function selectItem(mainItem: string, subItem: string ) {
+    const  selectItem = (mainItem: string, subItem: string ) => {
         sidebarStore.updateSelection(mainItem, subItem);
     }
 
