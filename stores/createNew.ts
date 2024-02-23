@@ -7,14 +7,16 @@ export const useUbicationFormStore = defineStore('ubicationForm', () => {
   
     function showCreateUbication() {
       isCreatingUbication.value = true;
-      console.log('store', isCreatingUbication.value);
-      
+      console.log('store', isCreatingUbication.value); 
     }
+
     function hiddeCreateUbication() {
         isCreatingUbication.value = false;
     }
+
     function resetViewState() {
         isCreatingUbication.value = false; // o cualquier valor predeterminado
-      }
+    }
+    
     return { isCreatingUbication, showCreateUbication,hiddeCreateUbication, resetViewState };
 });

@@ -34,7 +34,7 @@
                     <div class="">
                         <button type="button"
                             class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white rounded-lg md:w-auto bg-follow hover:bg-violet-900 focus:ring-4 focus:ring-violet-200 focus:outline-none "
-                            @click="showCreateNewUbication"
+                            @click="createNewResource"
                         >
                             <svg class="h-4 w-4 mr-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                                 aria-hidden="true">
@@ -68,23 +68,24 @@
     import createNewUbication from '~/components/forms/createNewUbication.vue';
     import resourceCreatedModal from '~/components/modals/resourceCreatedModal.vue';
     import ListUsers from '~/components/users/ListUsers.vue';
-    import createNewFloor from '~/components/forms/createNewFloor.vue';
     import ListFloors from '~/components/floors/listFloor.vue';
 
     import { useSidebarStore } from '~/stores/sidebar';
     import { useUbicationFormStore } from '~/stores/ubications';
     import { useModalStatusStore } from '~/stores/modals';
+import CreateNewFloor from '~/components/forms/createNewFloor.vue';
 
     const ubicationFormStore = useUbicationFormStore();
     const sidebarStore = useSidebarStore();
     const modalStore = useModalStatusStore();
 
-    const showSearchBar = ref<Boolean>(false)
+    const showSearchBar = ref<Boolean>(false);
 
-    const showCreateNewUbication = ()=>{        
+    const createNewResource = ()=>{
         sidebarStore.resetSidebarState();
-        ubicationFormStore.showCreateUbication();
-        showSearchBar.value = ubicationFormStore.isCreatingUbication;
+        sidebarStore.showCreateResource();
+        // ubicationFormStore.showCreateUbication();
+        // showSearchBar.value = ubicationFormStore.isCreatingUbication;
     }
 
     const computedSelectionTitle = computed(()=>{
@@ -93,19 +94,40 @@
 
     const currentComponentContainer = computed(() => {
         if ( sidebarStore.mainSelection === 'Ubications') {
-            console.log('Etapa');
+            sidebarStore.currentSelection = 'Ubications'
             return ContentUbications;
         }else if (sidebarStore.mainSelection === 'Recursos'){
             if ( sidebarStore.subSelection === 'users'){
+                sideBar.currentSelection = 'users'
                 return ListUsers;
             }else if (sidebarStore.subSelection === 'floors'){
+                sidebarStore.currentSelection = 'floors'
                 // return createNewFloor;
                 return ListFloors;
             } else if( sidebarStore.subSelection === 'locations'){
+                sideBar.currentSelection = 'locations'
                 // return ListLocations;
             }
-        }else if (ubicationFormStore.isCreatingUbication){
-            return createNewUbication;
+        }else if (sidebarStore.createNewResource ){//evalua la creacion de recursos
+            console.log(sidebarStore.currentSelection);
+            
+            if (sidebarStore.currentSelection === 'floors'){
+                return CreateNewFloor;
+            }
+            if ( sidebarStore.currentSelection === 'Ubications') {
+                console.log(' ubi');
+                return createNewUbication;
+            }
+            if ( sidebarStore.currentSelection === 'users'){
+                console.log(' users');
+                return ListUsers;
+            }else if (sidebarStore.currentSelection === 'floors'){
+                console.log(' floor');
+                return CreateNewFloor;
+            } else if( sidebarStore.currentSelection === 'locations'){
+                // return ListLocations;
+            }
+            
         }
         else{
             console.log('nothing for view');

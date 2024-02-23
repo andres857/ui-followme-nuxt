@@ -4,15 +4,28 @@ import { defineStore } from 'pinia';
 export const useSidebarStore = defineStore('sidebar', () => {
   const mainSelection = ref('');
   const subSelection = ref('');
-  
+  const createNewResource = ref(false);
+  const currentSelection = ref('');
+
   function updateSelection(mainItem: string, subItem = '') {
     mainSelection.value = mainItem;
     subSelection.value = subItem;
   }
 
+  function updateCurrentSelection(selection: string){
+    currentSelection.value = selection
+  }
+
   function resetSidebarState() {
     mainSelection.value = ''; 
-    subSelection.value = ''; 
+    subSelection.value = '';
+    createNewResource.value = false;
   }
-  return { mainSelection, subSelection, updateSelection, resetSidebarState };
+
+  function showCreateResource(){
+    createNewResource.value = true;
+    console.log('Store SideBar - create resource', createNewResource.value);
+  }
+
+  return { mainSelection, subSelection, updateSelection, resetSidebarState, showCreateResource, createNewResource,currentSelection, updateCurrentSelection };
 });
