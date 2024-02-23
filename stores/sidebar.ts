@@ -12,10 +12,6 @@ export const useSidebarStore = defineStore('sidebar', () => {
     subSelection.value = subItem;
   }
 
-  function updateCurrentSelection(selection: string){
-    currentSelection.value = selection
-  }
-
   function resetSidebarState() {
     mainSelection.value = ''; 
     subSelection.value = '';
@@ -24,8 +20,8 @@ export const useSidebarStore = defineStore('sidebar', () => {
 
   function showCreateResource(){
     createNewResource.value = true;
-    console.log('Store SideBar - create resource', createNewResource.value);
+    console.log('Store SideBar - create resource', createNewResource.value, currentSelection.value);
   }
 
-  return { mainSelection, subSelection, updateSelection, resetSidebarState, showCreateResource, createNewResource,currentSelection, updateCurrentSelection };
+  return { mainSelection, subSelection, updateSelection, resetSidebarState, showCreateResource, createNewResource,currentSelection };
 });

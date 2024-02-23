@@ -68,18 +68,24 @@
     import createNewUbication from '~/components/forms/createNewUbication.vue';
     import resourceCreatedModal from '~/components/modals/resourceCreatedModal.vue';
     import ListUsers from '~/components/users/ListUsers.vue';
+    import Createuser from '~/components/users/create.vue';
+
     import ListFloors from '~/components/floors/listFloor.vue';
+    import CreateNewFloor from '~/components/forms/createNewFloor.vue';
+
+    import ListLocations from '~/components/locations/ListLocation.vue';
+    import CreateLocation from '~/components/locations/CreateLocation.vue';
 
     import { useSidebarStore } from '~/stores/sidebar';
     import { useUbicationFormStore } from '~/stores/ubications';
     import { useModalStatusStore } from '~/stores/modals';
-import CreateNewFloor from '~/components/forms/createNewFloor.vue';
 
     const ubicationFormStore = useUbicationFormStore();
     const sidebarStore = useSidebarStore();
     const modalStore = useModalStatusStore();
 
     const showSearchBar = ref<Boolean>(false);
+    const test = ref(false);
 
     const createNewResource = ()=>{
         sidebarStore.resetSidebarState();
@@ -93,45 +99,37 @@ import CreateNewFloor from '~/components/forms/createNewFloor.vue';
     })
 
     const currentComponentContainer = computed(() => {
+
         if ( sidebarStore.mainSelection === 'Ubications') {
             sidebarStore.currentSelection = 'Ubications'
             return ContentUbications;
         }else if (sidebarStore.mainSelection === 'Recursos'){
             if ( sidebarStore.subSelection === 'users'){
-                sideBar.currentSelection = 'users'
+                sidebarStore.currentSelection = 'users'
                 return ListUsers;
             }else if (sidebarStore.subSelection === 'floors'){
                 sidebarStore.currentSelection = 'floors'
-                // return createNewFloor;
                 return ListFloors;
             } else if( sidebarStore.subSelection === 'locations'){
-                sideBar.currentSelection = 'locations'
-                // return ListLocations;
+                sidebarStore.currentSelection = 'locations'
+                return ListLocations;
             }
         }else if (sidebarStore.createNewResource ){//evalua la creacion de recursos
             console.log(sidebarStore.currentSelection);
             
             if (sidebarStore.currentSelection === 'floors'){
                 return CreateNewFloor;
-            }
-            if ( sidebarStore.currentSelection === 'Ubications') {
-                console.log(' ubi');
+            }else if ( sidebarStore.currentSelection === 'Ubications') {
                 return createNewUbication;
-            }
-            if ( sidebarStore.currentSelection === 'users'){
+            }else if ( sidebarStore.currentSelection === 'users'){
                 console.log(' users');
-                return ListUsers;
-            }else if (sidebarStore.currentSelection === 'floors'){
-                console.log(' floor');
-                return CreateNewFloor;
+                return Createuser;
             } else if( sidebarStore.currentSelection === 'locations'){
-                // return ListLocations;
+                console.log('locations');   
+                return CreateLocation;
             }
-            
         }
-        else{
-            console.log('nothing for view');
-        }
+        
     });
 
 </script>
