@@ -93,13 +93,10 @@
 
 <script lang="ts" setup>
     import { useSidebarStore } from "~/stores/sidebar";
-    // import { useUbicationsStore } from "~/stores/ubications";
     
     const sidebarStore = useSidebarStore();
-    // const ubicationStore = useUbicationsStore();
     
-    const  selectItem = (mainItem: string, subItem: string ) => {
+    const selectItem = (mainItem: string, subItem: string ) => {
         sidebarStore.updateSelection(mainItem, subItem);
     }
-
 </script>
