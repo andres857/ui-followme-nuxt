@@ -1,45 +1,40 @@
 <template>
-    <span>search field:</span>
-    <select v-model="searchField">
-      <option>player</option>
-      <option>team</option>
-    </select>
+    <div class=" bg-violet-300">
+        <br/>
+        <span>Buscar: </span>
+        <input type="text" v-model="searchValue">
     
-    <br/>
+        <EasyDataTable
+        :headers="headers"
+        :items="floors"
+        :search-value="searchValue"
+        />
+    </div>
+</template>
   
-    <span>search value: </span>
-    <input type="text" v-model="searchValue">
-  
-    <EasyDataTable
-      :headers="headers"
-      :items="items"
-      :search-field="searchField"
-      :search-value="searchValue"
-    />
-  </template>
-  
-  <script lang="ts" setup>
-  import { ref } from "vue";
-  import type { Header, Item } from "vue3-easy-data-table";
-  
-  const searchField = ref("player");
-  const searchValue = ref("Stephen Curry");
-    
-  const headers: Header[] = [
-    { text: "PLAYER", value: "player" },
-    { text: "TEAM", value: "team"},
-    { text: "NUMBER", value: "number"},
-    { text: "POSITION", value: "position"},
-    { text: "HEIGHT", value: "height"},
-    { text: "WEIGHT (lbs)", value: "weight", sortable: true},
-    { text: "LAST ATTENDED", value: "lastAttended"},
-    { text: "COUNTRY", value: "country"},
-  ];
-  
-  const items: Item[] = [
-    { "player": "Stephen Curry", "team": "GSW", "number": 30, "position": 'G', "height": '6-2', "weight": 185, "lastAttended": "Davidson", "country": "USA"},
-    { "player": "Lebron James", "team": "LAL", "number": 6, "position": 'F', "height": '6-9', "weight": 250, "lastAttended": "St. Vincent-St. Mary HS (OH)", "country": "USA"},
-    { "player": "Kevin Durant", "team": "BKN", "number": 7, "position": 'F', "height": '6-10', "weight": 240, "lastAttended": "Texas-Austin", "country": "USA"},
-    { "player": "Giannis Antetokounmpo", "team": "MIL", "number": 34, "position": 'F', "height": '6-11', "weight": 242, "lastAttended": "Filathlitikos", "country": "Greece"},
-  ];
-  </script>
+<script lang="ts" setup>
+    import { useRuntimeConfig } from '#app';
+    import { ref } from "vue";
+    import type { Header, Item } from "vue3-easy-data-table";
+
+    const config = useRuntimeConfig();
+    const apiBase = config.public.apiBase;
+
+    const searchValue = ref("");
+    const floors = ref<any>([]);
+
+    const headers: Header[] = [
+        { text: "ID", value: "id" },
+        { text: "Nombre", value: "name"},
+    ];
+
+    onMounted(async ()=>{
+        try {
+            const data = await $fetch(`${apiBase}/floors`);
+            console.log(data);
+            floors.value = data;
+        } catch (error) {
+            console.error('Error fetching Floors:', error);
+        }
+    })
+</script>

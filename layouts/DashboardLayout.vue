@@ -108,7 +108,7 @@
             return createNewUbication;
         }
         else{
-            console.log('noting for view');
+            console.log('nothing for view');
         }
     });
 

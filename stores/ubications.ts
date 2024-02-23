@@ -76,4 +76,3 @@ export const useSearchValueStore = defineStore('searchValue', ()=>{
     const searchDestiny = ref('');
     return { searchInput, searchStart,searchDestiny }
 });
-  
