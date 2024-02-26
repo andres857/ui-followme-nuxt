@@ -19,16 +19,16 @@
                             </div>
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                 <div>
-                                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Editar</h3>
+                                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Editar Registro</h3>
                                 </div>
                                 <div class="my-2">
                                     <!-- <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Piso</label> -->
-                                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" :placeholder="name" />
-                                    {{ id }}
+                                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" :value="name" :placeholder="name" />
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {{ responseStatusServer }}
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     
                         <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="">Actualizar</button>
@@ -45,17 +45,21 @@
 </template>
 
 <script lang="ts" setup>
-    import { defineProps } from 'vue';
     import { useRuntimeConfig } from '#app';
 
     const config = useRuntimeConfig();
     const apiBase = config.public.apiBase;
     const responseStatusServer = ref<any>([]);
+    const data = ref<any | null>('');
 
     const props = defineProps({
         name: String,
         id: String,
     });
+
+    onMounted( ()=>{ 
+        data.value = props.name
+    })
 
     const emits = defineEmits(['close']);
 
@@ -77,13 +81,25 @@
         });
     });
 
-    const deleteFloor = async( id: string) => {
+    const updateFloor = async( id: string) => {
         try {
             const { status: responseStatus } = await useFetch(`${apiBase}/floors/${id}`, {
             method: 'DELETE',
             });
             responseStatusServer.value = responseStatus.value;
             console.log('Piso eliminado exitosamente', responseStatus.value);
+        } catch (error) {
+            console.error('Error al eliminar el piso:', error);
+        }
+    }
+
+    const deleteFloor = async( id: string) => {
+        try {
+            const data = await useFetch(`${apiBase}/floors/${id}`, {
+            method: 'DELETE',
+            });
+            responseStatusServer.value = data.data;
+            // console.log('Piso eliminado exitosamente', responseStatus.value);
         } catch (error) {
             console.error('Error al eliminar el piso:', error);
         }

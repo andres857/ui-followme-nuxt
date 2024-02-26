@@ -51,7 +51,7 @@
         try {
             const data = await $fetch(`${apiBase}/floors`);
             console.log(data);
-            floors.value = data;
+            floors.value = data.data;
         } catch (error) {
             console.error('Error fetching Floors:', error);
         }
