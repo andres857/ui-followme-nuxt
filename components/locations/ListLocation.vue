@@ -31,8 +31,7 @@
     onMounted(async ()=>{
         try {
             const data = await $fetch(`${apiBase}/locations`);
-            console.log(data);
-            locations.value = data;
+            locations.value = data.data;
         } catch (error) {
             console.error('Error fetching locations:', error);
         }

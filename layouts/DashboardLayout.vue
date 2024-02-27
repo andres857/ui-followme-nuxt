@@ -68,7 +68,7 @@
     import createNewUbication from '~/components/forms/createNewUbication.vue';
     import resourceCreatedModal from '~/components/modals/resourceCreatedModal.vue';
     import ListUsers from '~/components/users/ListUsers.vue';
-    import Createuser from '~/components/users/create.vue';
+    import CreateUser from '~/components/users/CreateUser.vue';
 
     import ListFloors from '~/components/floors/listFloor.vue';
     import CreateNewFloor from '~/components/forms/createNewFloor.vue';
@@ -123,7 +123,7 @@
                 return createNewUbication;
             }else if ( sidebarStore.currentSelection === 'users'){
                 console.log(' users');
-                return Createuser;
+                return CreateUser;
             } else if( sidebarStore.currentSelection === 'locations'){
                 console.log('locations');   
                 return CreateLocation;

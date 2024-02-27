@@ -28,10 +28,9 @@ export const useUbicationsStore = defineStore('ubications', () => {
 
     async function fetchUbicationsbyType(name: string) {
         try {
-            const ubicationsAPI = await $fetch<any[]>(`${apiBase}/ubications?type=${name}`);
-            ubications.value = await Promise.all(ubicationsAPI.map(async (ubication) => {    
-                console.log(ubication);
-                            
+            const request = await $fetch<any[]>(`${apiBase}/ubications?type=${name}`);
+                ubications.value = await Promise.all(request.data.map(async (ubication:any) => {    
+    
                 const floor = await fetchFloorById(ubication.id_floor);
                 const location = await fetchLocationById( ubication.id_location);
                 
