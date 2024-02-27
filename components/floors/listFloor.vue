@@ -16,7 +16,7 @@
         />
     </div>
     <div v-else>
-        <EditFloor :name="content.name" :id="content.id" @close="showEditFloor = false"/>
+        <EditFloor :name="content.name" :id="content.id" @close="closeModal"/>
     </div>
 </template>
 
@@ -47,13 +47,23 @@
         console.log(item);
     }
 
-    onMounted(async ()=>{
+    const getFloors = async () =>{
+        console.log('getfloors');
         try {
-            const data = await $fetch(`${apiBase}/floors`);
+            const data =  await $fetch(`${apiBase}/floors`);
             console.log(data);
             floors.value = data.data;
         } catch (error) {
             console.error('Error fetching Floors:', error);
         }
+    }
+
+    const closeModal = async () => {
+        await getFloors()
+        showEditFloor.value = false;
+    }
+
+    onMounted(async ()=>{
+        await getFloors()
     })
 </script>

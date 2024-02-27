@@ -23,15 +23,14 @@
                                 </div>
                                 <div class="my-2">
                                     <!-- <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Piso</label> -->
-                                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" :value="name" :placeholder="name" />
+                                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" v-model="data"/>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{ responseStatusServer }}
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     
-                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="">Actualizar</button>
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="updateFloor(id)">Actualizar</button>
                         
                         <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="deleteFloor(id)">Borrar</button>
                         <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="closeModal">Cerrar</button>
@@ -67,7 +66,7 @@
     const closeModal = () => {        
         emits('close'); // Emitir el evento 'close'
     };
-    
+
     onMounted(() => {
         const closeOnEsc = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
@@ -83,13 +82,20 @@
 
     const updateFloor = async( id: string) => {
         try {
-            const { status: responseStatus } = await useFetch(`${apiBase}/floors/${id}`, {
-            method: 'DELETE',
+            const response = await useFetch(`${apiBase}/floors/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: {
+                    name: data.value,
+                },
             });
-            responseStatusServer.value = responseStatus.value;
-            console.log('Piso eliminado exitosamente', responseStatus.value);
+            
+            responseStatusServer.value = response.data;
+            // console.log('Actualizacion exitosa', responseStatus.value);
         } catch (error) {
-            console.error('Error al eliminar el piso:', error);
+            console.error('Error al Eliminar el piso:', error);
         }
     }
 
