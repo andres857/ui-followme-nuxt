@@ -38,7 +38,8 @@
 
     const headers: Header[] = [
         { text: "ID", value: "id" },
-        { text: "Nombre", value: "name"},
+        { text: "Nombre", value: "firstName"},
+        { text: "Email", value: "email"},
     ];
 
     const showRow = (item: ClickRowArgument)=>{

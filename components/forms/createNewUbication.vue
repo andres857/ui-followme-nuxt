@@ -162,9 +162,9 @@
             const location = await $fetch(`${apiBase}/locations`);
             const floor = await $fetch(`${apiBase}/floors`);
             
-            ubicationsTypes.value = typeUbication;
-            locations.value = location;
-            floors.value = floor;
+            ubicationsTypes.value = typeUbication.data;
+            locations.value = location.data;
+            floors.value = floor.data;
         } catch (error) {
             console.error('Error fetching Types:', error);
         }
