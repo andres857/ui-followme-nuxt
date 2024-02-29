@@ -1,7 +1,8 @@
 # Etapa de desarrollo 
 FROM node:lts-iron AS dev
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY package.json .
+RUN npm install nuxt
 RUN npm install
 COPY . .
 EXPOSE 3000
