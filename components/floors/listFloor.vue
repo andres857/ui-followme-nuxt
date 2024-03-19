@@ -19,7 +19,7 @@
 
 
 
-
+ 
 
     <div v-else>
         <EditFloor :name="content.name" :id="content.id" @close="closeModal"/>
@@ -46,8 +46,8 @@
     --easy-table-body-row-height: 5px;
     --easy-table-body-row-font-size: 15px;
 
-    --easy-table-body-row-hover-font-color: #660087;
-    --easy-table-body-row-hover-background-color: #eee;
+    --easy-table-body-row-hover-font-color: #9200c2;
+    --easy-table-body-row-hover-background-color: #fcc2fc;
 
     --easy-table-body-item-padding: 10px 15px;
 
