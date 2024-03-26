@@ -6,7 +6,7 @@
             <img class=" p-1" src="https://followme-assets.nyc3.cdn.digitaloceanspaces.com/icono_busqueda.svg" alt="">
         </div>
 
-        <div class="flex-grow">
+        <div class="flex-grow border-gray-300 border-[1px] rounded-r-xl">
             <input type="search" class=" bg-slate-200 px-4 rounded-tr-xl rounded-br-xl h-full w-full text-xl focus:outline-none"
             placeholder="Buscar el Destino" v-model="searchValueStore.searchInput">
         </div>

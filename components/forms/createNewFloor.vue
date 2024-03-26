@@ -9,7 +9,7 @@
             <button @click="onSubmit" class=" bg-follow px-3 py-2 rounded-xl text-white" type="button">Guardar</button>
         </div>
     {{ floor }}
-    <h3>
+    <h3> 
         {{ responseStatusServer }}
     </h3>
     <h4>

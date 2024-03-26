@@ -4,7 +4,7 @@
             <sideBar/>
         </section>
 
-        <section class="bg-violet-200 flex w-full min-h-screen gap-6 justify-center items-center ">
+        <section class="bg-slate-200 flex w-full min-h-screen gap-6 justify-center items-center ">
             <!-- content section -->
             <div class="h-full w-full grid ">
                 <div class=" h-[8vh] flex justify-around items-center">
