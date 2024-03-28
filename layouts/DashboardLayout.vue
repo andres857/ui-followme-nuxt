@@ -47,7 +47,7 @@
 
                 </div>
                 <!-- search and filter section -->
-                <div v-if="!showSearchBar" class="h-[12vh] flex justify-center items-center" >
+                <div v-if="showSearchBar" class="h-[12vh] flex justify-center items-center" >
                     <searchUbication class="w-[650px]"/>
                 </div>
 
@@ -90,8 +90,6 @@
     const createNewResource = ()=>{
         sidebarStore.resetSidebarState();
         sidebarStore.showCreateResource();
-        // ubicationFormStore.showCreateUbication();
-        // showSearchBar.value = ubicationFormStore.isCreatingUbication;
     }
 
     const computedSelectionTitle = computed(()=>{
@@ -101,31 +99,38 @@
     const currentComponentContainer = computed(() => {
 
         if ( sidebarStore.mainSelection === 'Ubications') {
+            showSearchBar.value = true; 
             sidebarStore.currentSelection = 'Ubications'
             return ContentUbications;
         }else if (sidebarStore.mainSelection === 'Recursos'){
             if ( sidebarStore.subSelection === 'users'){
+            showSearchBar.value = false; 
                 sidebarStore.currentSelection = 'users'
                 return ListUsers;
             }else if (sidebarStore.subSelection === 'floors'){
+            showSearchBar.value = false; 
                 sidebarStore.currentSelection = 'floors'
                 return ListFloors;
             } else if( sidebarStore.subSelection === 'locations'){
+            showSearchBar.value = false; 
                 sidebarStore.currentSelection = 'locations'
                 return ListLocations;
             }
-        }else if (sidebarStore.createNewResource ){//evalua la creacion de recursos
+        //evalua la creacion de recursos
+        }else if (sidebarStore.createNewResource ){ 
             console.log(sidebarStore.currentSelection);
-            
             if (sidebarStore.currentSelection === 'floors'){
+            showSearchBar.value = false; 
                 return CreateNewFloor;
             }else if ( sidebarStore.currentSelection === 'Ubications') {
+            showSearchBar.value = false; 
                 return createNewUbication;
             }else if ( sidebarStore.currentSelection === 'users'){
-                console.log(' users');
+            showSearchBar.value = false; 
                 return CreateUser;
-            } else if( sidebarStore.currentSelection === 'locations'){
-                console.log('locations');   
+            }else if( sidebarStore.currentSelection === 'locations'){
+            showSearchBar.value = false; 
+                   
                 return CreateLocation;
             }
         }
