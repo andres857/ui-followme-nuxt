@@ -8,13 +8,13 @@
 
         <div class="flex-grow border-gray-300 border-[1px] rounded-r-xl">
             <input type="search" class=" bg-slate-200 px-4 rounded-tr-xl rounded-br-xl h-full w-full text-xl focus:outline-none"
-            placeholder="Buscar el Destino" v-model="searchValueStore.searchInput">
+            placeholder="Buscar Ubicacion" >
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-    import {  useSearchValueStore } from '../stores/ubications';
+    // import {  useSearchValueStore } from '../stores/ubications';
 
-    const searchValueStore = useSearchValueStore();
+    // const searchValueStore = useSearchValueStore();
 </script>

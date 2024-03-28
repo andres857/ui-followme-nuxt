@@ -48,7 +48,7 @@
                 </div>
                 <!-- search and filter section -->
                 <div v-if="showSearchBar" class="h-[12vh] flex justify-center items-center" >
-                    <searchUbication class="w-[650px]"/>
+                    <searchLocation class="w-[650px]"/>
                 </div>
 
                 <!-- DashBoard Content -->
@@ -63,10 +63,9 @@
 <script lang="ts" setup>
     import { computed } from 'vue';
     import sideBar from '~/components/sideBar.vue';
-    import searchUbication from '~/components/searchUbication.vue';
+    import searchLocation from '~/components/locations/SearchLocation.vue';
     import ContentUbications from '~/components/ContentUbications.vue';
     import createNewUbication from '~/components/forms/createNewUbication.vue';
-    import resourceCreatedModal from '~/components/modals/resourceCreatedModal.vue';
     import ListUsers from '~/components/users/ListUsers.vue';
     import CreateUser from '~/components/users/CreateUser.vue';
 
@@ -77,15 +76,10 @@
     import CreateLocation from '~/components/locations/CreateLocation.vue';
 
     import { useSidebarStore } from '~/stores/sidebar';
-    import { useUbicationFormStore } from '~/stores/ubications';
-    import { useModalStatusStore } from '~/stores/modals';
 
-    const ubicationFormStore = useUbicationFormStore();
+
     const sidebarStore = useSidebarStore();
-    const modalStore = useModalStatusStore();
-
     const showSearchBar = ref<Boolean>(false);
-    const test = ref(false);
 
     const createNewResource = ()=>{
         sidebarStore.resetSidebarState();
