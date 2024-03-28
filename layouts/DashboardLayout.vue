@@ -63,14 +63,15 @@
 <script lang="ts" setup>
     import { computed } from 'vue';
     import sideBar from '~/components/sideBar.vue';
-    import searchLocation from '~/components/locations/SearchLocation.vue';
-    import ContentUbications from '~/components/ContentUbications.vue';
-    import createNewUbication from '~/components/forms/createNewUbication.vue';
+    import searchLocation from '~/components/ubications/SearchUbication.vue';
+    import ContentUbications from '~/components/ubications/ContentUbications.vue';
+    import CreateNewUbication from '~/components/ubications/CreateNewUbication.vue';
+
     import ListUsers from '~/components/users/ListUsers.vue';
     import CreateUser from '~/components/users/CreateUser.vue';
 
     import ListFloors from '~/components/floors/listFloor.vue';
-    import CreateNewFloor from '~/components/forms/createNewFloor.vue';
+    import CreateNewFloor from '~/components/floors/createNewFloor.vue';
 
     import ListLocations from '~/components/locations/ListLocation.vue';
     import CreateLocation from '~/components/locations/CreateLocation.vue';
@@ -118,7 +119,7 @@
                 return CreateNewFloor;
             }else if ( sidebarStore.currentSelection === 'Ubications') {
             showSearchBar.value = false; 
-                return createNewUbication;
+                return CreateNewUbication;
             }else if ( sidebarStore.currentSelection === 'users'){
             showSearchBar.value = false; 
                 return CreateUser;
