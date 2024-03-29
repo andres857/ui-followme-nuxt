@@ -2,6 +2,9 @@
     <section v-if="!computedShowModal">
         <!-- Card Form-->
         <div class="flex justify-center">
+            <h2>Crear Nueva Ubicacion</h2>
+        </div>
+        <div class="flex justify-center">
             <!-- section image upload -->
             <div class="flex justify-center items-center border-[#7CAFFF] border-[0.5px] rounded-xl w-4/12 p-10">
                 <label for="dropzone-image" class="flex flex-col items-center w-full max-w-lg p-5 mx-auto mt-2 text-center bg-white border-2 border-gray-300 border-dashed cursor-pointer rounded-xl">

@@ -6,9 +6,8 @@
 
         <section class="bg-slate-200 flex w-full min-h-screen gap-6 justify-center items-center ">
             <!-- content section -->
-            <div class="h-full w-full grid ">
-                <div class=" h-[8vh] flex justify-around items-center">
-
+            <div class="h-full w-full grid">
+                <div v-if="showCreateNewResource" class=" h-[8vh] flex justify-around items-center ">
                     <div>
                         <div class="w-full text-left">
                             <nav aria-label="breadcrumb" class="block w-full">
@@ -81,6 +80,8 @@
 
     const sidebarStore = useSidebarStore();
     const showSearchBar = ref<Boolean>(false);
+    const showCreateNewResource = ref<Boolean>(false);
+
 
     const createNewResource = ()=>{
         sidebarStore.resetSidebarState();
@@ -113,41 +114,46 @@
 
         if ( sidebarStore.mainSelection === 'Ubications') {
             showSearchBar.value = true; 
+            showCreateNewResource.value = true;
             sidebarStore.currentSelection = 'Ubications'
             return ContentUbications;
         }else if (sidebarStore.mainSelection === 'Recursos'){
             if ( sidebarStore.subSelection === 'users'){
-            showSearchBar.value = false; 
+                showSearchBar.value = false; 
+                showCreateNewResource.value = true;
                 sidebarStore.currentSelection = 'users'
                 return ListUsers;
             }else if (sidebarStore.subSelection === 'floors'){
-            showSearchBar.value = false; 
+                showSearchBar.value = false; 
+                showCreateNewResource.value = true;
                 sidebarStore.currentSelection = 'floors'
                 return ListFloors;
             } else if( sidebarStore.subSelection === 'locations'){
-            showSearchBar.value = false; 
+                showSearchBar.value = false; 
+                showCreateNewResource.value = true;
                 sidebarStore.currentSelection = 'locations'
                 return ListLocations;
             }
         //evalua la creacion de recursos
         }else if (sidebarStore.createNewResource ){ 
-            console.log(sidebarStore.currentSelection);
             if (sidebarStore.currentSelection === 'floors'){
-            showSearchBar.value = false; 
+                showCreateNewResource.value = false;
+                showSearchBar.value = false;
                 return CreateNewFloor;
             }else if ( sidebarStore.currentSelection === 'Ubications') {
-            showSearchBar.value = false; 
+                showSearchBar.value = false; 
+                showCreateNewResource.value = false;
                 return CreateNewUbication;
             }else if ( sidebarStore.currentSelection === 'users'){
-            showSearchBar.value = false; 
+                showSearchBar.value = false; 
+                showCreateNewResource.value = false;
                 return CreateUser;
             }else if( sidebarStore.currentSelection === 'locations'){
-            showSearchBar.value = false; 
-                   
+                showSearchBar.value = false; 
+                showCreateNewResource.value = false;
                 return CreateLocation;
             }
-        }
-        
+        } 
     });
 
 </script>
