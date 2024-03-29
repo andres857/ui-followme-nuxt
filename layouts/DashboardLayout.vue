@@ -15,7 +15,7 @@
                                 <ol class="flex w-full flex-wrap items-center rounded-md bg-blue-gray-50 bg-opacity-60 py-2 px-4">
                                     <li class="flex cursor-pointer items-center font-sans text-sm font-normal leading-normal text-blue-gray-900 antialiased transition-colors duration-300 hover:text-pink-500">
                                         <a class="opacity-60" href="#">
-                                        <span>Ubications</span>
+                                        <span>{{sidebarStore.mainSelection}}</span>
                                         </a>
                                         <span class="pointer-events-none mx-2 select-none font-sans text-sm font-normal leading-normal text-blue-gray-500 antialiased">
                                         /
@@ -88,7 +88,25 @@
     }
 
     const computedSelectionTitle = computed(()=>{
-        return sidebarStore.subSelection === 'Inicio' ? 'Zonas QR' : 'Destinos'
+        if (sidebarStore.mainSelection === 'Ubications'){
+            if( sidebarStore.subSelection === 'Inicio'){
+                return 'Zonas QR'
+            } else if( sidebarStore.subSelection === 'Etapa'){
+                return 'Etapas'
+            }else if( sidebarStore.subSelection === 'Trayectos'){
+                return 'Trayectos'
+            }else{
+                return 'Destinos'
+            }
+        } else if(sidebarStore.mainSelection === 'Recursos'){
+            if( sidebarStore.subSelection === 'users'){
+                return 'Usuarios'
+            } else if( sidebarStore.subSelection === 'locations'){
+                return 'Sedes'
+            }else if( sidebarStore.subSelection === 'floors'){
+                return 'Pisos'
+            }
+        }
     })
 
     const currentComponentContainer = computed(() => {
