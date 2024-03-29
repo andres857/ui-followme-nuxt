@@ -30,9 +30,9 @@
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     
-                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="updateFloor(id)">Actualizar</button>
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="updateUser(id)">Actualizar</button>
                         
-                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="deleteFloor(id)">Borrar</button>
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="deleteUser(id)">Borrar</button>
                         <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="closeModal">Cerrar</button>
                     </div>
                 </div>
@@ -48,6 +48,7 @@
 
     const config = useRuntimeConfig();
     const apiBase = config.public.apiBase;
+    
     const responseStatusServer = ref<any>([]);
     const data = ref<any | null>('');
 
@@ -80,9 +81,11 @@
         });
     });
 
-    const updateFloor = async( id: number) => {
+    const updateUser = async( id: number) => {
         try {
-            const response = await useFetch(`${apiBase}/floors/${id}`, {
+            console.log(apiBase);
+            
+            const response = await useFetch(`${apiBase}/users/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -91,23 +94,21 @@
                     name: data.value,
                 },
             });
-            
             responseStatusServer.value = response.data;
             // console.log('Actualizacion exitosa', responseStatus.value);
         } catch (error) {
-            console.error('Error al Eliminar el piso:', error);
+            console.error('Error al Actualizar el Usuario', error);
         }
     }
 
-    const deleteFloor = async( id: string) => {
+    const deleteUser = async( id: number) => {
         try {
-            const data = await useFetch(`${apiBase}/floors/${id}`, {
+            const data = await useFetch(`${apiBase}/users/${id}`, {
             method: 'DELETE',
             });
             responseStatusServer.value = data.data;
-            // console.log('Piso eliminado exitosamente', responseStatus.value);
         } catch (error) {
-            console.error('Error al eliminar el piso:', error);
+            console.error('Error al eliminar el Usuario', error);
         }
     }
 

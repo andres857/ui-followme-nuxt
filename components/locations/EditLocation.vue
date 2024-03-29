@@ -30,9 +30,9 @@
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     
-                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="updateFloor(id)">Actualizar</button>
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="updateLocation(id)">Actualizar</button>
                         
-                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="deleteFloor(id)">Borrar</button>
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="deleteLocation(id)">Borrar</button>
                         <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="closeModal">Cerrar</button>
                     </div>
                 </div>
@@ -48,12 +48,13 @@
 
     const config = useRuntimeConfig();
     const apiBase = config.public.apiBase;
+    
     const responseStatusServer = ref<any>([]);
     const data = ref<any | null>('');
 
     const props = defineProps({
         name: String,
-        id: String,
+        id: Number,
     });
 
     onMounted( ()=>{ 
@@ -80,8 +81,10 @@
         });
     });
 
-    const updateFloor = async( id: string) => {
+    const updateLocation = async( id: number) => {
         try {
+            console.log(apiBase);
+            
             const response = await useFetch(`${apiBase}/locations/${id}`, {
             method: 'PUT',
             headers: {
@@ -91,15 +94,13 @@
                     name: data.value,
                 },
             });
-            
             responseStatusServer.value = response.data;
-            // console.log('Actualizacion exitosa', responseStatus.value);
         } catch (error) {
-            console.error('Error al Eliminar el piso:', error);
+            console.error('Error al Actualizar el piso:', error);
         }
     }
 
-    const deleteFloor = async( id: string) => {
+    const deleteLocation = async( id: number) => {
         try {
             const data = await useFetch(`${apiBase}/locations/${id}`, {
             method: 'DELETE',
