@@ -2,7 +2,7 @@
     <div v-if="!showEditLocation" class=" bg-white-100">
         <br/>
         <!-- {{ content }} -->
-        <span class="pl-[3vh] text-xl">Buscar: </span><input type="text" class="bg-slate-200 px-4 rounded-xl rounded-br-xl text-xl focus:outline-none mb-5" v-model="searchValue">
+        <span class="pl-[3vh] text-xl">Buscar: </span><input type="text" class="bg-slate-200 px-4 border-[1.5px] border-gray-500 rounded-xl rounded-br-xl text-xl focus:outline-none mb-5" v-model="searchValue">
     
         <EasyDataTable
             class="bg-violet-200 mx-[5vh] rounded-md shadow-md font-semibold text-xl"
