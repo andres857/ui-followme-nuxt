@@ -19,6 +19,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "@types/js-cookie": "^3.0.6",
+    "flowbite": "^2.3.0",
     "js-base64": "^3.7.6",
     "js-cookie": "^3.0.5",
     "pinia": "^2.1.7",
