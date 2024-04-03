@@ -29,6 +29,8 @@ export const useUbicationsStore = defineStore('ubications', () => {
     async function fetchUbicationsbyType(name: string) {
         try {
             const request = await $fetch<any[]>(`${apiBase}/ubications?type=${name}`);
+            console.log(request.data);
+            
                 ubications.value = await Promise.all( request.data.map(async ( ubication:any ) => {
                 const cardInfo = {
                     id: ubication.id,
@@ -36,7 +38,9 @@ export const useUbicationsStore = defineStore('ubications', () => {
                     imageUrl: ubication.imageUrl,
                     location: ubication.location.name,
                     floor: ubication.floor.name,
-                    ubicationType: ubication.type.name
+                    ubicationType: ubication.type.name,
+                    description: ubication.Description,
+                    qr: ubication.QR,
                 }
                 return cardInfo;
             }));
