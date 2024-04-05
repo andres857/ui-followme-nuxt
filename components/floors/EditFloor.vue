@@ -28,6 +28,7 @@
                             </div>
                         </div>
                     </div>
+                    {{ responseStatusServer }}
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     
                         <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="updateFloor(id)">Actualizar</button>
@@ -37,6 +38,23 @@
                     </div>
                 </div>
                 </transition>
+
+                <transition enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <Success></Success>
+                </transition>
+
+                <transition enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <Failed></Failed>
+                </transition>
+
+                <transition enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <Delete></Delete>
+                </transition>
+
+                <transition enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <Processing></Processing>
+                </transition>
+
                 </div>
             </div>
         </div>
@@ -45,6 +63,11 @@
 
 <script lang="ts" setup>
     import { useRuntimeConfig } from '#app';
+    import Delete from '../modals/Delete.vue';
+    import Failed from '../modals/Failed.vue';
+    import Processing from '../modals/Processing.vue';
+    import Success from '../modals/Success.vue';
+
 
     const config = useRuntimeConfig();
     const apiBase = config.public.apiBase;
@@ -92,10 +115,21 @@
                 },
             });
             
-            responseStatusServer.value = response.data;
-            // console.log('Actualizacion exitosa', responseStatus.value);
+            responseStatusServer.value = response;
+            if(responseStatusServer.value.data.statusCode >= 200 && responseStatusServer.value.data.statusCode <= 299){
+                console.log('SuccessModal', responseStatusServer.value);
+            }
+            else if(responseStatusServer.value.data.statusCode >= 400 && responseStatusServer.value.data.statusCode <= 499){
+                console.log('FailedModal', responseStatusServer.value);
+            }
+            else if(responseStatusServer.value.data.statusCode >= 100 && responseStatusServer.value.data.statusCode <= 199){
+                console.log('ProcessingModal', responseStatusServer.value);
+            }
+            else{                
+                console.log('FailedModal', responseStatusServer.value);
+            }
         } catch (error) {
-            console.error('Error al Eliminar el piso:', error);
+            console.error('FailedModal', error);
         }
     }
 
@@ -105,9 +139,16 @@
             method: 'DELETE',
             });
             responseStatusServer.value = data.data;
+
+            if(responseStatusServer.value.data.statusCode >= 200 && responseStatusServer.value.data.statusCode <= 299){
+                console.log('SuccessModal', responseStatusServer.value);
+            }
+            else[
+                console.log( 'FailedModal')
+            ]
             // console.log('Piso eliminado exitosamente', responseStatus.value);
         } catch (error) {
-            console.error('Error al eliminar el piso:', error);
+            console.error('FailedModal', error);
         }
     }
 
