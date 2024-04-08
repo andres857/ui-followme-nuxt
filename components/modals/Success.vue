@@ -21,9 +21,9 @@
                             
                             <h3 class="pb-[15px]">Los datos se han actualizado correctamente.</h3>
 
-                            <button data-modal-hide="popup-modal" type="button" class="text-white  bg-[#660087] hover:bg-[8500b2] focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                            <!-- <button data-modal-hide="popup-modal" type="button" class="text-white  bg-[#660087] hover:bg-[8500b2] focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                                 Continuar
-                            </button>
+                            </button> -->
 
 
 
