@@ -1,7 +1,8 @@
 <template>
     <div class="h-[80vh] grid grid-cols-3 gap-x-4 gap-y-5 bg-slate-200 p-5 overflow-y-auto">
+    {{ ubicationStore.ubications }}        
         <UbicationCard class="h-[255px]" v-if="sidebarStore.subSelection === 'Inicio'" 
-            v-for=" ubication in ubicationStore.ubications" :key="ubication.id" :nameUbication="ubication.name" :imageUrl="ubication.imageUrl" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="ubication.location" :floor="ubication.floor" :type="ubication.ubicationType"/>
+            v-for=" ubication in ubicationStore.ubications" :key="ubication.id" :nameUbication="ubication.name" :imageUrl="ubication.imageUrl" :description="ubication.description" :location="ubication.location" :floor="ubication.floor" :type="ubication.ubicationType"/>
         
         <UbicationCard  class="h-[255px]" v-else-if="sidebarStore.subSelection ===  'Destino'" v-for=" ubication, index in ubicationStore.ubications" :key="index" :nameUbication="ubication.name" :imageUrl="ubication.imageUrl" :description="'Lorem ipsum dolor sit amet consectetur adipisicing elit...'" :location="ubication.location" :floor="ubication.floor" :type="ubication.ubicationType"/>
 
