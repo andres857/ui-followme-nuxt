@@ -22,11 +22,11 @@
                             
                             <h3 class="pb-[15px]">Estás seguro de borrar este campo?</h3>
 
-                            <button data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                                Sí, Estoy seguro
+                            <button data-modal-hide="popup-modal" type="button" class="text-white pl-6 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center " @click="deleteFloor">
+                               Estoy seguro
                             </button>
-                            <button data-modal-hide="popup-modal" type="button" class="text-white  bg-[#660087] hover:bg-[8500b2] focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                                No, Cancelar
+                            <button data-modal-hide="popup-modal" type="button" class="text-white  bg-[#660087] hover:bg-[8500b2] focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center" @click="closeModal">
+                                Cancelar
                             </button>
 
 
@@ -35,8 +35,24 @@
                     </div>
                 </div>
                 </transition>
+
                 </div>
             </div>
         </div>
     </transition>
 </template>
+
+<script lang="ts" setup>
+    const emits = defineEmits(['close', 'deleteFloors']);
+    
+    // Lógica para cerrar el modal y emitir el evento
+    const closeModal = () => {                
+        emits('close'); // Emitir el evento 'close'
+    };
+
+    const deleteFloor = () => {
+        emits('deleteFloors');
+    }
+
+
+</script>

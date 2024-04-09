@@ -34,7 +34,7 @@
                         <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="updateFloor(id)">Actualizar</button>
                         
                         <!-- // ELIMINAR DATOS ------------------------ -->
-                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="deleteFloor(id)">Borrar</button>
+                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="validation">Borrar</button>
                        
                         <!-- // CERRAR VENTANA ------------------------ -->
                         <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="closeModal">Cerrar</button>
@@ -47,11 +47,12 @@
                 </transition>
 
                 <transition v-else-if="deleteVisible" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                    <Delete></Delete>
+                    <Delete @close="closeModal" @deleteFloors="deleteFloor"></Delete>
+                    <!-- <Delete @close="closeModal" @deleteFloors="deleteFloor" :id="content.id"></Delete> -->
                 </transition >
 
                 <transition v-else-if="failedVisible" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                    <Failed></Failed>
+                    <Failed @close="closeModal"></Failed>
                 </transition>
 
                 <transition v-else-if="processingVisible" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
@@ -101,7 +102,7 @@
         emits('close'); // Emitir el evento 'close'
     };
 
-    onMounted(() => {
+    onMounted(() => { 
         const closeOnEsc = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
                 closeModal();
@@ -124,7 +125,7 @@
                     closeModal();
                 }, 2000);
             }
-            else if(statusCode === 404 || statusCode === 400 || statusCode || 500){
+            else if(statusCode === 404 || statusCode === 400 || statusCode === 500){
                 failedVisible.value=true;
                 setTimeout(() => {
                     failedVisible.value=false;
@@ -156,16 +157,23 @@
 
     // ELIMINAR DATOS ------------------------
 
-    const deleteFloor = async( id: string) => {
+    const deleteFloor = async( id: number) => {
         try {
-            const data = await useFetch(`${apiBase}/floors/${id}`, {
+            const response = await $fetch(`${apiBase}/floors/${id}`, {
             method: 'DELETE',
             });
             // responseStatusServer.value = data.data;
             // console.log('Piso eliminado exitosamente', responseStatus.value);
+
+            console.log("respuesta del server", response);
+            handleResponde(response.statusCode);
         } catch (error) {
-            console.error('Error al eliminar el piso:', error);
+            failedVisible.value=true;
+            console.error('Error', error);
         }
+    }
+    const validation = () => {
+            deleteVisible.value=true;
     }
 
 </script>

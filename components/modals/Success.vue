@@ -16,7 +16,7 @@
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                     </svg>
 
-                                    <h1 class=" font-bold text-3xl py-[15px]">Success!</h1>
+                                    <h1 class=" font-bold text-3xl py-[15px]">Bien!</h1>
                                     
                                     <h3 class="pb-[15px]">Los datos se han actualizado correctamente.</h3>
 
@@ -24,7 +24,7 @@
                                         Continuar
                                     </button>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                     </transition>
                 </div>

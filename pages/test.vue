@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import SuccessModal from "./../components/modals/Processing.vue";
+    import SuccessModal from "./../components/modals/Failed.vue";
 </script>
 
 <template>
