@@ -17,14 +17,10 @@
         />
     </div>
 
-
-
-
     <div v-else>
         <EditFloor :name="content.name" :id="content.id" @close="closeModal"/>
     </div>
 </template>
-
 
 <script lang="ts" setup>
     import { useRuntimeConfig } from '#app';

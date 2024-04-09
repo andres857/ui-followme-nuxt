@@ -18,7 +18,6 @@
                             </div>
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                 <div>
-                                    {{ responseStatusServer }} **
                                     <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Editar Registro</h3>
                                 </div>
                                 <div class="my-2">
@@ -43,19 +42,19 @@
                 </div>
                 </transition>
 
-                <transition v-if="successVisible != 0" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                    <Success ></Success>
+                <transition v-if="successVisible" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <ModalSuccess @close="closeModal"></ModalSuccess>
                 </transition>
 
-                <transition v-else-if="deleteVisible != 0" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                <transition v-else-if="deleteVisible" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                     <Delete></Delete>
                 </transition >
 
-                <transition v-else-if="failedVisible != 0" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                <transition v-else-if="failedVisible" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                     <Failed></Failed>
                 </transition>
 
-                <transition v-else-if="processingVisible != 0" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                <transition v-else-if="processingVisible" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                     <Processing></Processing>
                 </transition>
 
@@ -68,7 +67,7 @@
 <script lang="ts" setup>
 
     import { useRuntimeConfig } from '#app';
-    import Success from '../modals/Success.vue';
+    import ModalSuccess from '../modals/Success.vue';
     import Delete from '../modals/Delete.vue';
     import Failed from '../modals/Failed.vue';
     import Processing from '../modals/Processing.vue';
@@ -78,12 +77,11 @@
     const responseStatusServer = ref<any>([]);
     const dataModal = ref<any | null>('');
 
-    // Variables para controlar si se ven o no los modals
-
-    const successVisible = ref(0);
-    const deleteVisible = ref(0);
-    const failedVisible = ref(0);
-    const processingVisible = ref(0);
+    // Variables para controlar los modals que se visualizan
+    const successVisible = ref(false);
+    const deleteVisible = ref(false);
+    const failedVisible = ref(false);
+    const processingVisible = ref(false);
 
     const props = defineProps({
         name: String,
@@ -98,7 +96,7 @@
 
     const emits = defineEmits(['close']);
 
-    // Lógica para cerrar el modal y emitir el evento
+    // Emite el evento close al padre para cerrar el modal
     const closeModal = () => {        
         emits('close'); // Emitir el evento 'close'
     };
@@ -106,7 +104,7 @@
     onMounted(() => {
         const closeOnEsc = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
-            closeModal();
+                closeModal();
             }
         };
         window.addEventListener('keydown', closeOnEsc);
@@ -116,8 +114,24 @@
         });
     });
 
-
     // ACTUALIZAR DATOS ------------------------
+
+    const handleResponde = ( statusCode: Number) => {
+        if (statusCode === 200){
+                successVisible.value=true;
+                setTimeout(() => {
+                    successVisible.value=false;
+                    closeModal();
+                }, 2000);
+            }
+            else if(statusCode === 404 || statusCode === 400 || statusCode || 500){
+                failedVisible.value=true;
+                setTimeout(() => {
+                    failedVisible.value=false;
+                    closeModal();
+                }, 2000);
+            }
+    }
 
     const updateFloor = async( id: number) => {
         try {
@@ -133,34 +147,10 @@
             
             // responseStatusServer.value = response.data;
             console.log("respuesta del server", response);
-
-            if (response.statusCode === 200){
-                successVisible.value=1;
-                setTimeout(() => {
-                    successVisible.value=0;
-                    closeModal();
-                }, 3000);
-            }
-            else if(response.statusCode === 404){
-                failedVisible.value=1;
-                setTimeout(() => {
-                    failedVisible.value=0;
-                    closeModal();
-                }, 3000);
-            }
-            else if(response.statusCode === 400){
-                failedVisible.value=1;
-                setTimeout(() => {
-                    failedVisible.value=0;
-                    closeModal();
-                }, 3000);
-            }else{
-                console.log("nn", typeof(responseStatusServer)  );
-            }
-
-            // console.log('Actualizacion exitosa', responseStatus.value);
+            handleResponde(response.statusCode);
         } catch (error) {
-            console.error('Error ', error);
+            failedVisible.value=true;
+            console.error('Error', error);
         }
     }
 
