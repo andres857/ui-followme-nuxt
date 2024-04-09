@@ -1,6 +1,5 @@
 <template>
     <div class="h-[80vh] grid grid-cols-3 gap-x-4 gap-y-5 bg-slate-200 p-5 overflow-y-auto">
-    {{ ubicationStore.ubications }}        
         <UbicationCard class="h-[255px]" v-if="sidebarStore.subSelection === 'Inicio'" 
             v-for=" ubication in ubicationStore.ubications" :key="ubication.id" :nameUbication="ubication.name" :imageUrl="ubication.imageUrl" :description="ubication.description" :location="ubication.location" :floor="ubication.floor" :type="ubication.ubicationType"/>
         
@@ -18,11 +17,10 @@
 
     // Observar cambios en sidebarStore.subSelection y cargar ubicaciones relevantes
     watch(() => sidebarStore.subSelection, async (newSubSelection) => {
-    if (newSubSelection) {
-        // Llamar a la API y actualizar `ubications` basado en el nuevo tipo de ubicación seleccionado
-        await ubicationStore.fetchUbicationsbyType(newSubSelection);
-        ubications.value = ubicationStore.ubications; 
-    }
-    }, { immediate: true }); // asegura que el watcher se ejecute inmediatamente con el valor actual al montar el componente
-    
+        if (newSubSelection) {
+            // Llamar a la API y actualizar `ubications` basado en el nuevo tipo de ubicación seleccionado
+            await ubicationStore.fetchUbicationsbyType(newSubSelection);
+            ubications.value = ubicationStore.ubications; 
+        }
+        }, { immediate: true }); // asegura que el watcher se ejecute inmediatamente con el valor actual al montar el componente
 </script>

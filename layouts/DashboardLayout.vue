@@ -52,7 +52,7 @@
 
                 <!-- DashBoard Content -->
                 <!-- renderizar el content de manera condicional -->
-                <component :is="currentComponentContainer"></component>
+                <component :is="currentComponentContainer" @close="closeCreateResource"></component>
 
             </div>
         </section>
@@ -82,6 +82,12 @@
     const showSearchBar = ref<Boolean>(false);
     const showCreateNewResource = ref<Boolean>(false);
 
+
+    const closeCreateResource = async () => {
+        showSearchBar.value = true; 
+        showCreateNewResource.value = true;
+        sidebarStore.currentSelection = 'Ubications'
+    } 
 
     const createNewResource = ()=>{
         sidebarStore.resetSidebarState();
@@ -155,6 +161,8 @@
             }
         } 
     });
+    // events
+    
 
 </script>
 

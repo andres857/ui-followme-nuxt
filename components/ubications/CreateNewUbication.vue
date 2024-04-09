@@ -82,8 +82,9 @@
             </div>
         </div>
         <!-- button section -->
-        <div class="flex justify-center mt-4">
-            <button @click="onSubmit" class=" bg-[#0F62E6] px-3 py-2 rounded-xl text-white" type="button">Guardar</button>
+        <div class="flex justify-center mt-4 gap-x-2">
+            <button @click="closeModal" class=" bg-[#0F62E6] px-3 py-2 rounded-xl text-white" type="button"> Cancelar </button>
+            <button @click="onSubmit" class=" bg-[#0F62E6] px-3 py-2 rounded-xl text-white" type="button"> Guardar </button>
         </div>
     </section>
     <section v-else>
@@ -172,4 +173,11 @@
             console.error('Error fetching Types:', error);
         }
     })
+
+    const emits = defineEmits(['close']);
+
+    // Emite el evento close al padre para cerrar el modal
+    const closeModal = () => {        
+        emits('close'); // Emitir el evento 'close'
+    };
 </script>
