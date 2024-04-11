@@ -22,7 +22,7 @@
                             
                             <h3 class="pb-[15px]">Estás seguro de borrar este campo?</h3>
 
-                            <button data-modal-hide="popup-modal" type="button" class="text-white pl-6 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center " @click="deleteFloor">
+                            <button data-modal-hide="popup-modal" type="button" class="text-white pl-6 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center " @click="deleteFloor(id)">
                                Estoy seguro
                             </button>
                             <button data-modal-hide="popup-modal" type="button" class="text-white  bg-[#660087] hover:bg-[8500b2] focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center" @click="closeModal">
@@ -36,6 +36,9 @@
                 </div>
                 </transition>
 
+                <transition v-if="failedVisible" enter-active-class="ease-out duration-300" enter-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to-class="opacity-100 translate-y-0 sm:scale-100" leave-active-class="ease-in duration-200 " leave-class="opacity-100 translate-y-0 sm:scale-100" leave-to-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <Failed @close="closeModal"></Failed>
+                </transition>
                 </div>
             </div>
         </div>
@@ -43,15 +46,34 @@
 </template>
 
 <script lang="ts" setup>
-    const emits = defineEmits(['close', 'deleteFloors']);
+    import Failed from './Failed.vue';
     
+    const emits = defineEmits(['close', 'deleteFloors','handle']);
+     
     // Lógica para cerrar el modal y emitir el evento
     const closeModal = () => {                
         emits('close'); // Emitir el evento 'close'
     };
+    const handleResponde = () => {                
+        emits('handle'); // Emitir el evento 'close'
+    };
 
-    const deleteFloor = () => {
-        emits('deleteFloors');
+    const failedVisible = ref(false);
+
+    const deleteFloor = async( id: number) => {
+        try {
+            const response = await $fetch(`${apiBase}/floors/${id}`, {
+            method: 'DELETE',
+            });
+            // responseStatusServer.value = data.data;
+            // console.log('Piso eliminado exitosamente', responseStatus.value);
+
+            console.log("respuesta del server", response);
+            handleResponde(response.statusCode);
+        } catch (error) {
+            failedVisible.value=true;
+            console.error('Error', error);
+        }
     }
 
 
